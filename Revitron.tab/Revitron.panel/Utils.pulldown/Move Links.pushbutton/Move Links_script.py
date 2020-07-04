@@ -14,6 +14,7 @@ host = select_file('Revit Model (*.rvt)|*.rvt')
 source = select_folder('Select source directory for link structure')
 target = select_folder('Select target directory for link structure')
 
+print(host)
 print('Moving Links ...')
 revitron.TransmissionData(host).moveLinksOnDisk(source, target)
 print('Done')
