@@ -17,6 +17,11 @@ components = [
 form = FlexForm('Select by Parameter', components)
 form.show()
 
-ids = revitron.Filter().noTypes().byStringContains(form.values['parameter'], form.values['search'], form.values['invert']).getElementIds()
+viewId = False
+
+if form.values['viewOnly']:
+    viewId = revitron.ACTIVEVIEW.Id
+
+ids = revitron.Filter(viewId).noTypes().byStringContains(form.values['parameter'], form.values['search'], form.values['invert']).getElementIds()
 
 revitron.Selection.set(ids)
