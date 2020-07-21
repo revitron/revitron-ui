@@ -3,9 +3,15 @@ from revitron import _
 from rpw.ui.forms import FlexForm, TextBox, Button, Label, Separator, ComboBox, CheckBox
 import System.Windows
 
+defaultParameter = False
+parameters = revitron.ParameterNameList().get()
+
+if 'Family and Type' in parameters:
+    defaultParameter = 'Family and Type'
+
 components = [
     Label('Parameter Name'),
-    ComboBox('parameter', revitron.ParameterNameList().get()),
+    ComboBox('parameter', parameters, default=defaultParameter),
     Label('Search String'),
     TextBox('search'),
     Separator(),
