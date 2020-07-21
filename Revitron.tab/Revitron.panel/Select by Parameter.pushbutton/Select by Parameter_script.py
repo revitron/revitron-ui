@@ -16,12 +16,13 @@ components = [
     Label('Search String'),
     TextBox('search'),
     Separator(),
-    CheckBox('invert', 'Invert Selection', default=False),
-    CheckBox('viewOnly', 'This view only', default=False)
+    CheckBox('invert', 'Invert Selection', default=False)
 ]
 
 if selection:
     components.append(CheckBox('selection', 'Search in selection only', default=True))
+else:
+    components.append(CheckBox('viewOnly', 'Search in this view only', default=False))
     
 components.append(Button('Select', Width=100, HorizontalAlignment=System.Windows.HorizontalAlignment.Right))
 
