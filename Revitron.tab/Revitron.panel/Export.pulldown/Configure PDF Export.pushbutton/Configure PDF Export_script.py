@@ -1,36 +1,39 @@
 import revitron
 from revitron import _
 from rpw.ui.forms import FlexForm, TextBox, Button, Label, Separator, ComboBox
+from collections import defaultdict
 import System.Windows
 
 
 if not revitron.Document().isFamily():
     
-    info = _(revitron.DOC.ProjectInformation)
+    config = revitron.DocumentConfigStorage().get('export.pdf', defaultdict())
     
     fields = [
-        'Revitron PDF Printer Address',
-        'Revitron PDF Temporary Output Path',
-        'Revitron Sheet Export Directory',
-        'Revitron Sheet Naming Template',
-        'Revitron Sheet Size Parameter Name',
-        'Revitron Default Sheet Size',
-        'Revitron Sheet Orientation Parameter Name'
+        'PDF Printer Address',
+        'PDF Temporary Output Path',
+        'Sheet Export Directory',
+        'Sheet Naming Template',
+        'Sheet Size Parameter Name',
+        'Default Sheet Size',
+        'Sheet Orientation Parameter Name'
     ]
     
     components = []
     
     for field in fields:
+        key = revitron.String.sanitize(field)
         components.append(Label(field))
-        components.append(TextBox(revitron.String.sanitize(field), Text=info.get(field), Width=500))
+        components.append(TextBox(key, Text=config.get(key), Width=500))
 
-    orientationField = 'Revitron Default Sheet Orientation'
+    orientationField = 'Default Sheet Orientation'
+    orientationKey = revitron.String.sanitize(orientationField)
     orientations = ['Landscape', 'Portrait']
     default = orientations[0]
-    if info.get(orientationField) in orientations:
-        default = info.get(orientationField)
+    if config.get(orientationKey) in orientations:
+        default = config.get(orientationKey)
     components.append(Label(orientationField))
-    components.append(ComboBox(revitron.String.sanitize(orientationField), orientations, default=default, Width=500))
+    components.append(ComboBox(orientationKey, orientations, default=default, Width=500))
     components.append(Label(''))
     components.append(Button('Save', Width=100, HorizontalAlignment=System.Windows.HorizontalAlignment.Right))
     
@@ -38,11 +41,7 @@ if not revitron.Document().isFamily():
     form.show()
           
     if form.values: 
-        transaction = revitron.Transaction()
-        for field in fields:
-            info.set(field, form.values[revitron.String.sanitize(field)])
-        info.set(orientationField, form.values[revitron.String.sanitize(orientationField)])   
-        transaction.commit()
+        revitron.DocumentConfigStorage().set('export.pdf', form.values)
        
        
         
