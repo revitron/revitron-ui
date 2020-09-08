@@ -12,6 +12,7 @@
 #
 import os
 import sys
+import datetime
 import revitron_sphinx_theme
 
 master_doc = 'index'
@@ -19,7 +20,7 @@ master_doc = 'index'
 # -- Project information -----------------------------------------------------
 
 project = 'Revitron UI'
-copyright = '2020, Marc Anton Dahmen'
+copyright = '{}, Marc Anton Dahmen'.format(datetime.datetime.now().year)
 author = 'Marc Anton Dahmen'
 
 
