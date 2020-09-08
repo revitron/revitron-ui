@@ -28,3 +28,4 @@ Revitron UI
 
    Revitron <https://revitron.readthedocs.io/en/latest/>
    RPM <https://github.com/revitron/rpm>
+   GitHub <https://github.com/revitron/revitron-ui>
