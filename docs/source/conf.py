@@ -82,6 +82,6 @@ html_sidebars = {}
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-html_css_files = []
+html_css_files = ['button.css']
 
 html_js_files = []

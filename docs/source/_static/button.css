@@ -1,0 +1,8 @@
+.rst-content .buttons a:first-child {
+	background-color: #FF4412;
+	border-color: #FF4412;
+}
+
+.rst-content .buttons a:first-child:hover {
+	color: #FF4412;
+}
