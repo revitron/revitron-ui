@@ -9,6 +9,6 @@ out.print_html('<strong>Revitron</strong><br><br>A Revit API wrapper written in 
 	'Check out the <a href="https://revitron-ui.readthedocs.io/">documentation</a>, ' +\
     'the <a href="https://revitron.readthedocs.io/">API reference</a><br>' +\
     'and the repositories on <a href="https://github.com/revitron">GitHub</a> for more infos.<br><br>' +\
-    '&copy; Copyright 2020, Marc Anton Dahmen, MIT license &mdash; ' +\
-    'Icons by <a href="https://icons8.com">Icons8</a>')
+    '&copy; Copyright 2020, Marc Anton Dahmen &mdash; MIT license<br>' +\
+    'All icons except for the Revitron logo by <a href="https://icons8.com">Icons8</a>')
 
