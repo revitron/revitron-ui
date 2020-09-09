@@ -27,5 +27,5 @@ Revitron UI
    :hidden:
 
    Revitron <https://revitron.readthedocs.io/en/latest/>
-   RPM <https://github.com/revitron/rpm>
+   RPM <https://github.com/revitron/rpm-ui/blob/master/README.md>
    GitHub <https://github.com/revitron/revitron-ui>
