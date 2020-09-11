@@ -2,6 +2,8 @@ import revitron
 from pyrevit import script
 from pyrevit import output
 
+__context__ = 'zero-doc'
+
 output.set_stylesheet(revitron.LIB_DIR + '\\css\\output.css')
 out = script.get_output()
 out.print_image(revitron.LIB_DIR + '/svg/revitron-white.svg')
