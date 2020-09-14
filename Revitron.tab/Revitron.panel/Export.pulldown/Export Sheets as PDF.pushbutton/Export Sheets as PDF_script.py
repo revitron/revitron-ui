@@ -17,27 +17,25 @@ if not sheets:
     sheets = [revitron.ACTIVEVIEW]
 
 for sheet in sheets:
+	
+	sheetSize = False
+	sheetOrientation = False
 
-	if sheet.Category.Name == 'Sheets':		
+	if sizeParamName:
+		sheetSize = _(sheet).get(sizeParamName)
 
-		sheetSize = False
-		sheetOrientation = False
+	if orientationParamName:
+		sheetOrientation = _(sheet).get(orientationParamName)
+		
+	if not sheetSize:
+		sheetSize = defaultSize
+		
+	if not sheetOrientation:
+		sheetOrientation = defaultOrientation
 
-		if sizeParamName:
-			sheetSize = _(sheet).get(sizeParamName)
-
-		if orientationParamName:
-			sheetOrientation = _(sheet).get(orientationParamName)
-			
-		if not sheetSize:
-			sheetSize = defaultSize
-			
-		if not sheetOrientation:
-			sheetOrientation = defaultOrientation
-
-		exporter.printSheet(sheet, 
-							sheetSize, 
-							sheetOrientation, 
-							config.get('Sheet_Export_Directory'), 
-							config.get('Sheet_Naming_Template')
-							)
+	exporter.printSheet(sheet, 
+						sheetSize, 
+						sheetOrientation, 
+						config.get('Sheet_Export_Directory'), 
+						config.get('Sheet_Naming_Template')
+						)
