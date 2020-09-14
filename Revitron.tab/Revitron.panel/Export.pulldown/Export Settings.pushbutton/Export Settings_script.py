@@ -4,27 +4,28 @@ from rpw.ui.forms import FlexForm, TextBox, Button, Label, Separator, ComboBox
 from collections import defaultdict
 import System.Windows
 
+def addFields(components, fields):
+    for field in fields:
+        if field == '---':
+            components.append(Separator())
+        else:
+        	key = revitron.String.sanitize(field)
+        	components.append(Label(field))
+        	components.append(TextBox(key, Text=config.get(key)))
+    return components
 
 if not revitron.Document().isFamily():
     
-    config = revitron.DocumentConfigStorage().get('export.pdf', defaultdict())
+    config = revitron.DocumentConfigStorage().get('revitron.export', defaultdict())
     
-    fields = [
-        'PDF Printer Address',
-        'PDF Temporary Output Path',
+    components = addFields([], 
+    [
         'Sheet Export Directory',
         'Sheet Naming Template',
         'Sheet Size Parameter Name',
         'Default Sheet Size',
         'Sheet Orientation Parameter Name'
-    ]
-    
-    components = []
-    
-    for field in fields:
-        key = revitron.String.sanitize(field)
-        components.append(Label(field))
-        components.append(TextBox(key, Text=config.get(key), Width=500))
+    ])
 
     orientationField = 'Default Sheet Orientation'
     orientationKey = revitron.String.sanitize(orientationField)
@@ -33,15 +34,25 @@ if not revitron.Document().isFamily():
     if config.get(orientationKey) in orientations:
         default = config.get(orientationKey)
     components.append(Label(orientationField))
-    components.append(ComboBox(orientationKey, orientations, default=default, Width=500))
+    components.append(ComboBox(orientationKey, orientations, default=default))
+    
+    components = addFields(components, 
+    [
+        '---',
+        'PDF Printer Address',
+        'PDF Temporary Output Path',
+        '---',
+        'DWG Export Options'
+    ])
+    
     components.append(Label(''))
     components.append(Button('Save', Width=100, HorizontalAlignment=System.Windows.HorizontalAlignment.Right))
     
-    form = FlexForm('Revitron PDF Printer Setup', components)
+    form = FlexForm('Revitron PDF and DWG Export Settings', components)
     form.show()
           
     if form.values: 
-        revitron.DocumentConfigStorage().set('export.pdf', form.values)
+        revitron.DocumentConfigStorage().set('revitron.export', form.values)
        
        
         
