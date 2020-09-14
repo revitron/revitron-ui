@@ -3,8 +3,8 @@ from revitron import _
 from collections import defaultdict
 
 config = revitron.DocumentConfigStorage().get('revitron.export', defaultdict())
-options = config.get('DWG_Export_Options')
-exporter = revitron.DWGExporter(options)
+setup = config.get('DWG_Export_Setup')
+exporter = revitron.DWGExporter(setup)
 
 sheets = revitron.Selection().get()
 

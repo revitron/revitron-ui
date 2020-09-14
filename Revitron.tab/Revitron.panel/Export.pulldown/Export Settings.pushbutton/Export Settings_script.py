@@ -42,7 +42,7 @@ if not revitron.Document().isFamily():
         'PDF Printer Address',
         'PDF Temporary Output Path',
         '---',
-        'DWG Export Options'
+        'DWG Export Setup'
     ])
     
     components.append(Label(''))
