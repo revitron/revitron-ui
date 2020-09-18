@@ -67,6 +67,8 @@ html_theme_options = {
 
 html_logo = '_static/revitron-ui.svg'
 
+html_favicon = '_static/favicon.ico'
+
 html_context = {
     'landing_page': {
         'menu': [
