@@ -66,7 +66,7 @@ html_theme_options = {
 }
 
 html_logo = '_static/revitron-ui.svg'
-
+html_title = 'Revitron UI'
 html_favicon = '_static/favicon.ico'
 
 html_context = {
