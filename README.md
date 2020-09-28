@@ -16,4 +16,4 @@ The user guide of the UI extension can be found [here](https://revitron.readthed
 
 ---
 
-&copy; 2020 Marc Anton Dahmen &mdash; MIT license
+&copy; 2020 [Marc Anton Dahmen](https://marcdahmen.de) &mdash; MIT license
