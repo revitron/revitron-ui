@@ -6,7 +6,7 @@ Revitron UI
 .. container:: .large
 
    Revitron UI is a `pyRevit <https://github.com/eirannejad/pyRevit>`_ extension written in Python 
-   based on `Revitron <https://revitron.readthedocs.io/en/latest/>`_. 
+   based on `Revitron <https://revitron.readthedocs.io/>`_. 
    It helps you to work efficiently with complex models by automating common tasks. 
 
 .. container:: .buttons
@@ -26,7 +26,7 @@ Revitron UI
    :caption: More
    :hidden:
 
-   Revitron <https://revitron.readthedocs.io/en/latest/>
+   Revitron <https://revitron.readthedocs.io/>
    RPM <https://github.com/revitron/rpm/blob/master/README.md>
    Unit Tests <https://github.com/revitron/revitron-tests>
    GitHub <https://github.com/revitron/revitron-ui>
