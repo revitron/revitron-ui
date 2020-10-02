@@ -5,10 +5,10 @@ Export Sheets as PDF
 --------------------
 
 Export Sheets as DWG
--------------------
+--------------------
 
 Export Settings
---------------------
+---------------
 
 The export settings control both --- the PDF and the DWG export. Before being able to export sheets from Revit, 
 please make sure to configure the main settings correctly as described below.
