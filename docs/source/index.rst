@@ -27,6 +27,6 @@ Revitron UI
    :hidden:
 
    Revitron <https://revitron.readthedocs.io/>
-   Revitron Package Manager <https://github.com/revitron/rpm#readme>
+   Package Manager <https://github.com/revitron/rpm#readme>
    Unit Tests <https://github.com/revitron/revitron-tests>
    GitHub <https://github.com/revitron/revitron-ui>
