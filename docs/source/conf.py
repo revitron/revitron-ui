@@ -20,7 +20,7 @@ master_doc = 'index'
 # -- Project information -----------------------------------------------------
 
 project = 'Revitron UI'
-copyright = '{}, Marc Anton Dahmen'.format(datetime.datetime.now().year)
+copyright = '{}, <a href="https://marcdahmen.de">Marc Anton Dahmen</a>'.format(datetime.datetime.now().year)
 author = 'Marc Anton Dahmen'
 
 
