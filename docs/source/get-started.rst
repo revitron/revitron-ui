@@ -8,24 +8,24 @@ as well as a pyRevit extension. It is possible to install both extensions manual
 Generally it is recommendend to install the bundled version as described below.
 
 .. attention:: The bundle installer as well as the Revitron package manager are using `Git <https://git-scm.com/>`_ to manage dependencies.
-   Please make sure that Git is installed properly on your system before installing Revitron.
+   Please make sure that **Git** is installed properly on your system before installing Revitron.
 
 Bundle Installer 
 ----------------
 
 To install the full bundle including pyRevit, Revitron, RPM and the Revitron UI, follow the instructions below:
 
-1. In case Git is not already installed --- `download <https://git-scm.com/download/win>`_ and install Git.
+1. In case **Git** is not already installed --- `download <https://git-scm.com/download/win>`_ and install Git.
 2. Right-click `here <https://raw.githubusercontent.com/revitron/installer/master/install.bat>`_ to download the installer. 
    Make sure it keeps the ``.bat`` extension.
-3. Move the ``install.bat`` to the directory, where you want to install pyRevit.
+3. Move the ``install.bat`` to the directory, where you want to install **pyRevit**.
 4. Double-click the ``install.bat`` file.
 5. Start **Revit**.
 
 Manual Installation
 -------------------
 
-The single library and UI packages can be installed using the pyRevit CLI as follows::
+The single library and UI packages can be installed using the **pyRevit CLI** as follows::
 
     pyrevit extend lib revitron https://github.com/revitron/revitron.git
     pyrevit extend ui revitron https://github.com/revitron/revitron-ui.git
