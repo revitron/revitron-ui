@@ -1,3 +1,12 @@
 {
-   "signedContributors": []
+  "signedContributors": [
+    {
+      "name": "mda-hdm",
+      "id": 69727271,
+      "comment_id": 706452643,
+      "created_at": "2020-10-10T00:18:59Z",
+      "repoId": 264623525,
+      "pullRequestNo": 2
+    }
+  ]
 }
