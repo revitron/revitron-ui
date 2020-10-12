@@ -1,6 +1,6 @@
 layout:
-  - Export Sheets as PDF
-  - Export Sheets as DWG
+  - ExportSheetsAsPDF[title:Export Sheets > PDF]
+  - ExportSheetsAsDWG[title:Export Sheets > DWG]
   - -----
-  - Export Settings
+  - ExportSettings[title:Export Settings]
   - Help

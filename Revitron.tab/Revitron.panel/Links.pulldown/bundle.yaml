@@ -1,5 +1,5 @@
 layout:
-  - Move Links
+  - MoveLinks[title:Move Links]
   - -----
-  - List Link Paths
-  - Search and Replace in Link Paths
+  - ListLinkPaths[title:List Link Paths]
+  - SearchAndReplaceInLinkPaths[title:Search And Replace in Link Paths]

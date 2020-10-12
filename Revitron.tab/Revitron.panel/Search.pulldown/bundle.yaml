@@ -1,0 +1,3 @@
+layout:
+  - SearchAndReplaceInSelection[title:Search and Replace in Selection]
+  - SelectElementsByParameter[title:Select Elements by Parameter]
