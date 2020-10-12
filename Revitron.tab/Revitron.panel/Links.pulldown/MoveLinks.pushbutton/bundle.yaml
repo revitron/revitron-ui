@@ -1,0 +1,3 @@
+tooltip: Move and re-link all links in a selected Revit project
+help_url: https://revitron-ui.readthedocs.io/en/latest/tools/links.html#move-links
+context: zero-doc

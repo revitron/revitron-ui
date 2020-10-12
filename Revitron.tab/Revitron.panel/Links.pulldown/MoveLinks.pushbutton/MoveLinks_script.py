@@ -2,8 +2,6 @@ import revitron
 from rpw.ui.forms import select_file
 from rpw.ui.forms.resources import *
 
-__context__ = 'zero-doc'
-
 def select_folder(title):
     form = Forms.FolderBrowserDialog()
     form.Description = title

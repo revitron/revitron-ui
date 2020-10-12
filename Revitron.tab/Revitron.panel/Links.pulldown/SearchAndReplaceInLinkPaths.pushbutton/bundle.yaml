@@ -1,0 +1,3 @@
+tooltip: Perform a search and relpace on the path of all links within a selected Revit project
+help_url: https://revitron-ui.readthedocs.io/en/latest/tools/links.html#search-and-replace-in-link-paths
+context: zero-doc

@@ -2,8 +2,6 @@ import revitron
 from pyrevit import script
 from pyrevit import output
 
-__context__ = 'zero-doc'
-
 style = 'body {padding: 20px 40px; color: #121212;} img {max-width: 500px; padding-bottom: 20px} span {display: block; text-align: center;}'
 output.get_output().add_style(style)
 output.get_output().set_width(510)
