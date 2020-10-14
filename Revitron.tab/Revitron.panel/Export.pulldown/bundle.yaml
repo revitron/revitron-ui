@@ -1,6 +1,9 @@
 layout:
-  - ExportSheetsAsPDF[title:Export Sheets > PDF]
-  - ExportSheetsAsDWG[title:Export Sheets > DWG]
+  - PDFActive[title:Export PDF > Active Sheet]
+  - PDFMultiple[title:Export PDF > Select From List]
+  - -----
+  - DWGActive[title:Export DWG > Active Sheet]
+  - DWGMultiple[title:Export DWG > Select From List]
   - -----
   - ExportSettings[title:Export Settings]
   - Help
