@@ -12,6 +12,7 @@ Revitron UI
 .. container:: .buttons
 
    `Get Started <get-started.html>`_
+   `GitHub <https://github.com/revitron/revitron-ui>`_
 
 
 .. toctree::
