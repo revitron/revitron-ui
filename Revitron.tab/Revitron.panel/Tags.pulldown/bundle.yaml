@@ -1,0 +1,6 @@
+layout:
+  - TagRoomCenter[title:Tag Rooms in View > Center]
+  - TagRoomTopLeft[title:Tag Rooms in View > Top Left]
+  - TagRoomTopRight[title:Tag Rooms in View > Top Right]
+  - TagRoomBottomLeft[title:Tag Rooms in View > Bottom Left]
+  - TagRoomBottomRight[title:Tag Rooms in View > Bottom Right]

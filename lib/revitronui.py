@@ -3,10 +3,11 @@ import os
 import sys
 from revitron import _
 from collections import defaultdict
+from pyrevit import forms
 
 
 class DWG:
-    
+	
 	def __init__(self):
 		self.config = revitron.DocumentConfigStorage().get('revitron.export', defaultdict())
 		setup = self.config.get('DWG_Export_Setup')
@@ -14,8 +15,8 @@ class DWG:
   
 	def export(self, sheet):
 		return self.exporter.exportSheet(sheet, 
-                      		    		 self.config.get('Sheet_Export_Directory'), 
-						 	    		 self.config.get('Sheet_Naming_Template'))
+					  					 self.config.get('Sheet_Export_Directory'), 
+						 				 self.config.get('Sheet_Naming_Template'))
 
 
 class PDF:
@@ -51,3 +52,23 @@ class PDF:
 										self.config.get('Sheet_Export_Directory'), 
 										self.config.get('Sheet_Naming_Template')
 										)
+
+
+class SelectType:
+	
+	def __init__(self, elementTypes):
+		self.options = []
+		for elementType in elementTypes:
+			self.options.append(OptionListTypes(elementType))
+	
+	def show(self, multiselect=False):
+		return forms.SelectFromList.show(self.options,
+                                		 multiselect=multiselect,
+                                		 button_name='Select Type')
+	
+	
+class OptionListTypes(forms.TemplateListItem):
+	
+	@property
+	def name(self):
+		return revitron.ParameterTemplate(self.item, '{Family Name} - {Type Name}', False).render()
