@@ -11,13 +11,18 @@ if not sheets:
 dwg = DWG()
 dirs = []
 
-for sheet in sheets:
-	path = dwg.export(sheet)
-	if path:
-		dirs.append(os.path.dirname(path))
-		script.get_output().print_html(':smiling_face: Exported <em>{}</em>'.format(os.path.basename(path)))
-	else:
-		script.get_output().print_html(':pouting_face: Error exporting <em>{}</em>'.format(os.path.basename(path)))
+max_value = len(sheets)
+counter = 1
+
+with forms.ProgressBar(title='Exporting DWG ... ({value} of {max_value})') as pb:
+	for sheet in sheets:
+		counter = counter + 1
+		path = dwg.export(sheet)
+		if path:
+			dirs.append(os.path.dirname(path))
+		else:
+			script.get_output().print_html(':pouting_face: Error exporting <em>{}</em>'.format(os.path.basename(path)))
+		pb.update_progress(counter, max_value)
 
 dirs = list(set(dirs))
 
