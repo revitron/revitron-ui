@@ -10,6 +10,9 @@ class DWG:
 	
 	def __init__(self):
 		self.config = revitron.DocumentConfigStorage().get('revitron.export', defaultdict())
+		if not self.config:
+			print('Please configure your DWG exporter first!')
+			sys.exit()
 		setup = self.config.get('DWG_Export_Setup')
 		self.exporter = revitron.DWGExporter(setup)
   
@@ -23,6 +26,9 @@ class PDF:
 	
 	def __init__(self):
 		self.config = revitron.DocumentConfigStorage().get('revitron.export', defaultdict())
+		if not self.config:
+			print('Please configure your PDF exporter first!')
+			sys.exit()
 		self.exporter = revitron.PDFExporter(self.config.get('PDF_Printer_Address'), self.config.get('PDF_Temporary_Output_Path'))
 		self.sizeParamName = self.config.get('Sheet_Size_Parameter_Name')
 		self.defaultSize = self.config.get('Default_Sheet_Size')
