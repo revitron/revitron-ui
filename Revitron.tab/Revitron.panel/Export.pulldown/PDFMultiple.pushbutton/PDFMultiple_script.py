@@ -11,15 +11,18 @@ if not sheets:
 pdf = PDF()
 dirs = []
 
-for sheet in sheets:
-	
-	path = pdf.export(sheet)
+max_value = len(sheets)
+counter = 1
 
-	if path:
-		dirs.append(os.path.dirname(path))
-		script.get_output().print_html(':smiling_face: Exported <em>{}</em>'.format(os.path.basename(path)))
-	else:
-		script.get_output().print_html(':pouting_face: Error exporting <em>{}</em>'.format(os.path.basename(path)))
+with forms.ProgressBar(title='Exporting PDF ... ({value} of {max_value})') as pb:
+	for sheet in sheets:	
+		counter = counter + 1
+		path = pdf.export(sheet)
+		if path:
+			dirs.append(os.path.dirname(path))
+		else:
+			script.get_output().print_html(':pouting_face: Error exporting <em>{}</em>'.format(os.path.basename(path)))
+		pb.update_progress(counter, max_value)
 
 dirs = list(set(dirs))
 
