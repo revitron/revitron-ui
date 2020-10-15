@@ -10,7 +10,7 @@ The [Revitron](https://github.com/revitron/revitron) UI extension for [pyRevit](
 ![Read the Docs](https://img.shields.io/readthedocs/revitron-ui?color=222222)
 ![](https://img.shields.io/badge/Revit-2017--2021-222222)
 
-> :point_up: Note that this extension is tested on Revit `2017`, `2019.1`, `2020.2` and `2021.1`. While not being tested, it may as well work on other versions.
+> :point_up: Note that this extension is only tested on Revit `2017`, `2019.1`, `2020.2` and `2021.1`, but may as well work on other versions.
 
 ## Docs
 
