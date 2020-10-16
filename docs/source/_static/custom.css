@@ -1,13 +1,7 @@
-.rst-content .buttons a:first-child {
-	background-color: #FF4412;
-	border-color: #FF4412;
+.wy-nav-top .logo {
+	margin-left: -0.25rem;
 }
 
-.rst-content .buttons a:first-child:hover {
-	color: #FF4412;
-}
-
-.rst-content .admonition.attention {
-	color: #FFFFFF;
-	background-color: #FF4412;
+.landing .headerlink:after {
+	display: none !important;
 }

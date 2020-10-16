@@ -1,5 +1,5 @@
-Installation 
-============
+Getting Started 
+===============
 
 The Revitron UI extension requires the `Revitron <https://revitron.readthedocs.io/>`_. library to be installed 
 as well as a pyRevit extension. It is possible to install both extensions manually or bundled with a custom 
@@ -7,7 +7,7 @@ as well as a pyRevit extension. It is possible to install both extensions manual
 `RPM <https://github.com/revitron/rpm/blob/master/README.md>`_. 
 Generally it is recommendend to install the bundled version as described below.
 
-.. attention:: The bundle installer as well as the Revitron package manager are using `Git <https://git-scm.com/>`_ to manage dependencies.
+.. note:: The bundle installer as well as the Revitron package manager are using `Git <https://git-scm.com/>`_ to manage dependencies.
    Please make sure that Git is installed properly on your system before installing Revitron.
 
 Bundle Installer 

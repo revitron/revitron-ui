@@ -12,7 +12,7 @@ xml:space="preserve"
 	<style type="text/css">
 		.st0{fill:#FFFFFF;}
 		.st1{fill:#121212;}
-		.st2{fill:#FF4412;}
+		.st2{fill:#121212;}
 	</style>
 	<path class="st0" d="M990,500H10c-5.5,0-10-4.5-10-10V10C0,4.5,4.5,0,10,0h980c5.5,0,10,4.5,10,10v480
 		C1000,495.5,995.5,500,990,500z"/>
