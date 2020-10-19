@@ -15,7 +15,7 @@ The [Revitron](https://github.com/revitron/revitron) UI extension for [pyRevit](
 ## Docs
 
 The Revitron UI extensions requires Revitron to be installed on your system. Check out the Revitron [installation instructions](https://revitron.readthedocs.io/en/latest/get-started.html) to get started quickly.
-The user guide of the UI extension can be found [here](https://revitron.readthedocs.io/en/latest/index.html).  
+The user guide of the UI extension can be found [here](https://revitron-ui.readthedocs.io/en/latest/index.html).  
 
 ---
 
