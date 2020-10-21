@@ -1,6 +1,9 @@
 layout:
-  - About
   - Search
   - Export
   - Tags
   - Links
+  - '>>>>>'
+  - About[title:About\nRevitron]
+  - Help[title:Online\nHelp]
+  - DeveloperGuide[title:Developer\nGuide]
