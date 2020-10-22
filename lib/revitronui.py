@@ -62,15 +62,17 @@ class PDF:
 
 class SelectType:
 	
-	def __init__(self, elementTypes):
+	def __init__(self, elementTypes, title):
+		self.title = title
 		self.options = []
 		for elementType in elementTypes:
 			self.options.append(OptionListTypes(elementType))
 	
 	def show(self, multiselect=False):
 		return forms.SelectFromList.show(self.options,
-                                		 multiselect=multiselect,
-                                		 button_name='Select Type')
+										 title=self.title,
+										 multiselect=multiselect,
+										 button_name='Select Type')
 	
 	
 class OptionListTypes(forms.TemplateListItem):
@@ -78,3 +80,16 @@ class OptionListTypes(forms.TemplateListItem):
 	@property
 	def name(self):
 		return revitron.ParameterTemplate(self.item, '{Family Name} - {Type Name}', False).render()
+
+
+class RoomTags():
+
+	@staticmethod
+	def add(method, title):
+		roomTagTypes = revitron.Filter().byCategory('Room Tags').onlyTypes().getElements()
+		roomTagType = SelectType(roomTagTypes, title).show()
+
+		if roomTagType:
+			for room in revitron.Filter(revitron.ACTIVEVIEW.Id).byCategory('Rooms').noTypes().getElements():
+				method(room, roomTagType.Id)
+		

@@ -1,12 +1,6 @@
 import revitron 
-from revitron import _ 
-from revitronui import SelectType
-from pyrevit import forms
-
-roomTagTypes = revitron.Filter().byCategory('Room Tags').onlyTypes().getElements()
-roomTagType = SelectType(roomTagTypes).show()
+from revitronui import RoomTags
 
 transaction = revitron.Transaction()
-for room in revitron.Filter(revitron.ACTIVEVIEW.Id).byCategory('Rooms').noTypes().getElements():
-    revitron.RoomTag.topLeft(room, roomTagType.Id)
+RoomTags.add(revitron.RoomTag.topLeft, 'Select Room Tag Type (Top Left)')
 transaction.commit()
