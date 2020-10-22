@@ -1,2 +1,2 @@
-Package Manager
-===============
+Packages
+========
