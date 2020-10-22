@@ -8,5 +8,5 @@ roomTagType = SelectType(roomTagTypes).show()
 
 transaction = revitron.Transaction()
 for room in revitron.Filter(revitron.ACTIVEVIEW.Id).byCategory('Rooms').noTypes().getElements():
-    revitron.RoomTag.bottomRight(room)
+    revitron.RoomTag.bottomRight(room, roomTagType.Id)
 transaction.commit()
