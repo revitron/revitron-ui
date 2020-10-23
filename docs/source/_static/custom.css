@@ -11,7 +11,7 @@
 }
 
 .container.gif img {
-	filter: grayscale(100%) contrast(110%);
+	filter: grayscale(100%) contrast(112%);
 	border-radius: 0.5rem;
 	border: 3px solid #CCCCCC;
 	box-shadow: 0 0.2rem 0.8rem rgba(0,0,0,0.08), 0 0.8rem 5rem rgba(0,0,0,0.1), 0 4rem 3rem -2rem rgba(0,0,0,0.18);
