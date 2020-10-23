@@ -51,6 +51,7 @@ class UI:
 	@staticmethod 
 	def printLogo():
 		out = script.get_output()
+		out.center()
 		out.print_html('<div style="text-align:center; margin: 30px 0"><img src="{}" style="max-width:500px;"></div>'.format(config.RPM_DIR + '/svg/rpm-ui.svg'))
   
 	@staticmethod 
