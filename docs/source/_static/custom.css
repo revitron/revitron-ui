@@ -6,11 +6,11 @@
 	display: none !important;
 }
 
-.container.gif {
+.container.mockup {
 	margin: 3rem 0;
 }
 
-.container.gif img {
+.container.mockup img {
 	filter: grayscale(100%) contrast(112%);
 	border-radius: 0.5rem;
 	border: 3px solid #CCCCCC;
@@ -18,7 +18,7 @@
 }
 
 @media (max-width: 600px) {
-	.container.gif img {
+	.container.mockup img {
 		border-radius: 0.35rem;
 		border-width: 2px;
 	}
