@@ -88,8 +88,10 @@ class RoomTags():
 	def add(method, title):
 		roomTagTypes = revitron.Filter().byCategory('Room Tags').onlyTypes().getElements()
 		roomTagType = SelectType(roomTagTypes, title).show()
-
+		scope = revitron.Selection.get()
+		if not scope:
+			scope = revitron.ACTIVEVIEW.Id
 		if roomTagType:
-			for room in revitron.Filter(revitron.ACTIVEVIEW.Id).byCategory('Rooms').noTypes().getElements():
+			for room in revitron.Filter(scope).byCategory('Rooms').noTypes().getElements():
 				method(room, roomTagType.Id)
 		
