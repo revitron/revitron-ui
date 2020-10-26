@@ -13,7 +13,7 @@ The package manager basically lets you define a list of **pyRevit** extensions a
 Since your list of dependencies becomes then part of your Revit model you can just synchronize your local file to distribute it to other team members.
 To actually load the extension tools, you can hit the **Install Extension** button when needed at any time.
 
-.. container:: .gif
+.. container:: .mockup
 
    .. image:: https://i.imgur.com/JVYkHM6.gif
 
