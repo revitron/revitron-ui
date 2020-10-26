@@ -16,6 +16,6 @@ If nothing is selected, all rooms in the active view will be tagged.
 - Tag Rooms > Bottom Left
 - Tag Rooms > Bottom Right
 
-.. container:: .gif
+.. container:: .mockup
 
    .. image:: https://i.imgur.com/bGISVEE.gif
