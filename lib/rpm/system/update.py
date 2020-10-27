@@ -72,8 +72,8 @@ class Update:
 			mlogger.error('Remote of repository "{}" not found!'.format(os.path.basename(repo)))
 			return False
 		if force:
-			print(Update.git('reset --hard HEAD'))
-			print(Update.git('clean -f -d'))
+			print(Update.git('reset --hard HEAD', repo))
+			print(Update.git('clean -f -d', repo))
 		status = Update.git('status --untracked-files=no --porcelain', repo)
 		if status:
 			print(status)
