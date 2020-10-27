@@ -9,7 +9,7 @@ from rpm.system.session import Session
 class UI:
 	
 	@staticmethod 
-	def checkUpdates(force = False):
+	def checkUpdates(noInteraction = False):
 	
 		hasUpdates = False
 		out = script.get_output()
@@ -31,7 +31,7 @@ class UI:
 		if extensions:
 			install = 'Install extension updates now'
 			skip = 'Skip updates'
-			if force:
+			if noInteraction:
 				res = install
 			else: 
 				res = forms.alert('There are pyRevit extension updates ready to be installed.',

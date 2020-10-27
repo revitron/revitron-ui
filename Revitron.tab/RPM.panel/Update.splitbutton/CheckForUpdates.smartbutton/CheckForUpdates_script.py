@@ -1,6 +1,3 @@
-"""
-Check for pyRevit core and extension updates and optionally install them. 
-"""
 import os
 from rpm.system.ui import UI
 from pyrevit.coreutils.ribbon import ICON_LARGE

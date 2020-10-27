@@ -67,10 +67,13 @@ class Update:
 		os.system('{}\\updatePyRevit.bat "{}" "{}"'.format(os.path.dirname(__file__), config.RPM_PYREVIT_DIR, revit))
 	
 	@staticmethod 
-	def extension(repo):
+	def extension(repo, force = False):
 		if not Update.remoteExists(repo):
 			mlogger.error('Remote of repository "{}" not found!'.format(os.path.basename(repo)))
 			return False
+		if force:
+			print(Update.git('reset --hard HEAD'))
+			print(Update.git('clean -f -d'))
 		status = Update.git('status --untracked-files=no --porcelain', repo)
 		if status:
 			print(status)
@@ -79,7 +82,7 @@ class Update:
 			print(Update.git('pull', repo))
 	
 	@staticmethod
-	def extensions():
+	def extensions(force = False):
 		out = script.get_output()
 		for repo in Update.getExtensionRepos():
 			out.print_html('<br><b>{}</b> &mdash; updating ...'.format(os.path.basename(repo)))
