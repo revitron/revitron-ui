@@ -31,3 +31,12 @@ In case there are pending updates waiting to be installed they can just be appli
 In contrast to extension updates, core updates require a shutdown of **all** running Revit instances to proceed. 
 So make sure, all open Revit files are saved before installing core updates! 
 Note that it is also possible to check for pending updates manually at any time hitting the **Check for Updates** button in the RPM panel.
+
+Forcing Updates
+~~~~~~~~~~~~~~~
+
+In some cases you may end up with a *dirty* working copy in one of the installed extensions and 
+the updater will not stop asking you to update on every Revit start, because it won't update *dirty* repositories. 
+To easily discard all local changes to the extension repositories, you can force updates by hitting 
+**Force Extension Updates** in the dropdown below the **Check for Updates** button. 
+Note that for now this is only possible for extension repositories and won't work with the pyRevit core.
