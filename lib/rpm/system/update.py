@@ -86,7 +86,7 @@ class Update:
 		out = script.get_output()
 		for repo in Update.getExtensionRepos():
 			out.print_html('<br><b>{}</b> &mdash; updating ...'.format(os.path.basename(repo)))
-			Update.extension(repo)
+			Update.extension(repo, force)
    
 	@staticmethod
 	def remoteExists(repo):
