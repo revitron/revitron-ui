@@ -1,12 +1,13 @@
-from pyrevit.loader.sessionmgr import execute_command
-
+from pyrevit import script
+from pyrevit.loader import sessionmgr
+from pyrevit.loader import sessioninfo
 
 class Session:
 
 	@staticmethod
 	def reload():
-     	# Call pyRevit reload command to reload pyRevit
-		# The reason to call the command instead of using sessionmgr module
-		# to realod is that the repo has been just updatedm so all
-		# modules need to be re-imported again in a clean engine.
-		execute_command('pyrevitcore-pyrevit-pyrevit-tools-reload')
+		logger = script.get_logger()
+		results = script.get_results()
+		logger.info('Reloading ...')
+		sessionmgr.reload_pyrevit()
+		results.newsession = sessioninfo.get_session_uuid()
