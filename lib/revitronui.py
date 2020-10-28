@@ -92,6 +92,11 @@ class RoomTags():
 		if not scope:
 			scope = revitron.ACTIVEVIEW.Id
 		if roomTagType:
-			for room in revitron.Filter(scope).byCategory('Rooms').noTypes().getElements():
-				method(room, roomTagType.Id)
-		
+			rooms = revitron.Filter(scope).byCategory('Rooms').noTypes().getElements()
+			max_value = len(rooms)
+			counter = 0
+			with forms.ProgressBar(title='Tagging rooms ... ({value} of {max_value})') as pb:
+				for room in rooms:
+					counter = counter + 1
+					method(room, roomTagType.Id)
+					pb.update_progress(counter, max_value)
