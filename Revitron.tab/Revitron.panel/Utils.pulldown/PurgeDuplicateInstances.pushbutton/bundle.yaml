@@ -1,2 +1,3 @@
 tooltip: Purge duplicate elements.
 help_url: https://revitron-ui.readthedocs.io/en/latest/tools/utils.html
+min_revit_version: 2018
