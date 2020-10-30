@@ -5,7 +5,7 @@ from pyrevit import script
 from pyrevit import forms
 import sys, os
 
-sheet = revitron.ACTIVEVIEW
+sheet = revitron.ACTIVE_VIEW
 
 if _(sheet).getClassName() == 'ViewSheet':
 	dwg = DWG()

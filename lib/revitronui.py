@@ -90,7 +90,7 @@ class RoomTags():
 		roomTagType = SelectType(roomTagTypes, title).show()
 		scope = revitron.Selection.get()
 		if not scope:
-			scope = revitron.ACTIVEVIEW.Id
+			scope = revitron.ACTIVE_VIEW.Id
 		if roomTagType:
 			rooms = revitron.Filter(scope).byCategory('Rooms').noTypes().getElements()
 			max_value = len(rooms)

@@ -37,7 +37,7 @@ if 'search' in form.values:
         scope = selection
     else:
         if 'viewOnly' in form.values and form.values['viewOnly']:
-            scope = revitron.ACTIVEVIEW.Id
+            scope = revitron.ACTIVE_VIEW.Id
 
     ids = revitron.Filter(scope).noTypes().byStringContains(form.values['parameter'], form.values['search'], form.values['invert']).getElementIds()
 
