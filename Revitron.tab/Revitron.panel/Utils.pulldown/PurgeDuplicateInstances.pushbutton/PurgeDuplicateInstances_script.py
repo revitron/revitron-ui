@@ -1,4 +1,5 @@
 import revitron
+import sys
 from revitron import _
 from revitronui import SelectType
 from pyrevit import forms
@@ -6,7 +7,7 @@ from pyrevit import script
 from rpw.ui.forms import Alert
 
 
-def purge(elementIds, title = 'Purging duplicate instances - 1st pass'):
+def purge(elementIds, typeIdsInteger, title = 'Purging duplicate instances - 1st pass'):
 	output = script.get_output()
 	deletedCount = 0
 	max_value = len(elementIds)
@@ -29,16 +30,23 @@ def purge(elementIds, title = 'Purging duplicate instances - 1st pass'):
 
 
 duplicates = revitron.Document().getDuplicateInstances()
+
+if not duplicates:
+	sys.exit()
+
 familyTypes = [] 
  
 for elementId in duplicates:
 	familyTypes.append(_(elementId).get('Family and Type'))
 
 dialog = SelectType(list(set(familyTypes)), 'Select family types to be purged')
-
+selectedTypeIds = dialog.show(True)
 typeIdsInteger = []
 
-for typeId in dialog.show(True):
+if not selectedTypeIds:
+	sys.exit()
+
+for typeId in selectedTypeIds:
 	typeIdsInteger.append(typeId.IntegerValue)
 
 transaction = revitron.Transaction()
@@ -47,7 +55,10 @@ transaction = revitron.Transaction()
 # a new warning list with all the duplicates that couldn't be remove in the first pass
 # (which must be shared families inside another family).
 # The second run will then remove always the older instances (getDuplicateInstances(True)). 
-deletedCount = purge(duplicates) + purge(revitron.Document().getDuplicateInstances(True), 'Purging duplicate instances - 2nd pass')
+deletedCount = purge(duplicates, typeIdsInteger)
+deletedCount = deletedCount + purge(revitron.Document().getDuplicateInstances(True), 
+									typeIdsInteger, 
+									'Purging duplicate instances - 2nd pass')
 transaction.commit()
 
 Alert('', header='Purged {} duplicate instances!'.format(deletedCount));
