@@ -1,5 +1,6 @@
 layout:
   - Search
+  - Info
   - Utils
   - Export
   - Tags
