@@ -20,7 +20,7 @@ class ElementInfo:
 
 			for dep in _(element).getDependent():
 				depFamType = revitron.Parameter(dep, 'Family and Type').getValueString()
-				depInfo = '{} {}, {}'.format(out.linkify(dep.Id), _(dep).getClassName(), depFamType).strip(', ')
+				depInfo = '{} {}, {}'.format(out.linkify(dep.Id), _(dep).getCategoryName(), depFamType).strip(', ')
 				depInfo = depInfo + '<br>'
 				dependents.append(depInfo)
 				
