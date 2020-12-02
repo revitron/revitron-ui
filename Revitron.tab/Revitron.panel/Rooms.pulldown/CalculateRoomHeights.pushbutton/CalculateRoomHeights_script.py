@@ -1,6 +1,7 @@
 import revitron 
 from revitron import _
 from pyrevit import script
+from pyrevit.forms import ProgressBar
 from rpw.ui import forms
 from collections import defaultdict, OrderedDict
 import System.Windows
@@ -166,43 +167,63 @@ if form.values:
 
 	revitron.DocumentConfigStorage().set('revitron.rooms.calculateRoomHeights', form.values)
 
-	roomFilter = revitron.Filter().byCategory('Rooms')
+	max_value = 4
 
-	if values.roomFltrParam:
-		roomFilter = roomFilter.byRegex(values.roomFltrParam, 
-										values.roomFltrRegex, 
-										values.roomFltrInvert)
-	
-	rooms = roomFilter.noTypes().getElements()
+	with ProgressBar(indeterminate=True, title='Preparing ... ({value} of {max_value})') as pb:
 
-	rawElements = None
-	finElements = None
+		pb.update_progress(0, max_value)
 
-	if values.rawEleFltrParam:
-		rawFilter = revitron.Filter().byRegex(values.rawEleFltrParam, 
-											  values.rawEleFltrRegex, 
-											  values.rawEleFltrInvert)
-		rawElements = rawFilter.noTypes().getElementIds()
+		roomFilter = revitron.Filter().byCategory('Rooms')
 
-	if values.finEleFltrParam:
-		finFilter = revitron.Filter().byRegex(values.finEleFltrParam, 
-											  values.finEleFltrRegex, 
-											  values.finEleFltrInvert)
-		finElements = finFilter.noTypes().getElementIds()
+		if values.roomFltrParam:
+			roomFilter = roomFilter.byRegex(values.roomFltrParam, 
+											values.roomFltrRegex, 
+											values.roomFltrInvert)
+		
+		rooms = roomFilter.noTypes().getElements()
 
-	view3D = revitron.Create.view3D()
+		rawElements = None
+		finElements = None
 
-	for room in rooms:
-		heights = _(room).traceHeight(view3D, rawElements, int(values.gridSize))
-		_(room).set(values.rawBottomMinParam, heights.bottom.min, 'Length')
-		_(room).set(values.rawBottomMaxParam, heights.bottom.max, 'Length')
-		_(room).set(values.rawTopMinParam, heights.top.min, 'Length')
-		_(room).set(values.rawTopMaxParam, heights.top.max, 'Length')
-		heights = _(room).traceHeight(view3D, finElements, int(values.gridSize))
-		_(room).set(values.finBottomMinParam, heights.bottom.min, 'Length')
-		_(room).set(values.finBottomMaxParam, heights.bottom.max, 'Length')
-		_(room).set(values.finTopMinParam, heights.top.min, 'Length')
-		_(room).set(values.finTopMaxParam, heights.top.max, 'Length')
+		pb.update_progress(1, max_value)
+
+		if values.rawEleFltrParam:
+			rawFilter = revitron.Filter().byRegex(values.rawEleFltrParam, 
+												values.rawEleFltrRegex, 
+												values.rawEleFltrInvert)
+			rawElements = rawFilter.noTypes().getElementIds()
+
+		pb.update_progress(2, max_value)
+
+		if values.finEleFltrParam:
+			finFilter = revitron.Filter().byRegex(values.finEleFltrParam, 
+												values.finEleFltrRegex, 
+												values.finEleFltrInvert)
+			finElements = finFilter.noTypes().getElementIds()
+
+		pb.update_progress(3, max_value)
+
+		view3D = revitron.Create.view3D()
+
+		pb.update_progress(4, max_value)
+
+	max_value = len(rooms)
+	counter = 0
+	with ProgressBar(title='Processing Rooms ... ({value} of {max_value})') as pb:
+		pb.update_progress(counter, max_value)
+		for room in rooms:
+			heights = _(room).traceHeight(view3D, rawElements, float(values.gridSize))
+			_(room).set(values.rawBottomMinParam, heights.bottom.min, 'Length')
+			_(room).set(values.rawBottomMaxParam, heights.bottom.max, 'Length')
+			_(room).set(values.rawTopMinParam, heights.top.min, 'Length')
+			_(room).set(values.rawTopMaxParam, heights.top.max, 'Length')
+			heights = _(room).traceHeight(view3D, finElements, float(values.gridSize))
+			_(room).set(values.finBottomMinParam, heights.bottom.min, 'Length')
+			_(room).set(values.finBottomMaxParam, heights.bottom.max, 'Length')
+			_(room).set(values.finTopMinParam, heights.top.min, 'Length')
+			_(room).set(values.finTopMaxParam, heights.top.max, 'Length')
+			counter = counter + 1
+			pb.update_progress(counter, max_value)
 
 	_(view3D).delete()
 
