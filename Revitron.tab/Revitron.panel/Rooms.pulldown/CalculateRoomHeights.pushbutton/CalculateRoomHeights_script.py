@@ -173,14 +173,14 @@ if form.values:
 
 		pb.update_progress(0, max_value)
 
-		roomFilter = revitron.Filter().byCategory('Rooms')
+		roomFilter = revitron.Filter().noTypes().byCategory('Rooms')
 
 		if values.roomFltrParam:
 			roomFilter = roomFilter.byRegex(values.roomFltrParam, 
 											values.roomFltrRegex, 
 											values.roomFltrInvert)
 		
-		rooms = roomFilter.noTypes().getElements()
+		rooms = roomFilter.getElements()
 
 		rawElements = None
 		finElements = None
@@ -213,15 +213,27 @@ if form.values:
 		pb.update_progress(counter, max_value)
 		for room in rooms:
 			heights = _(room).traceHeight(view3D, rawElements, float(values.gridSize))
-			_(room).set(values.rawBottomMinParam, heights.bottom.min, 'Length')
-			_(room).set(values.rawBottomMaxParam, heights.bottom.max, 'Length')
-			_(room).set(values.rawTopMinParam, heights.top.min, 'Length')
-			_(room).set(values.rawTopMaxParam, heights.top.max, 'Length')
+			try:
+				_(room).set(values.rawBottomMinParam, heights.bottom.min, 'Length')
+				_(room).set(values.rawBottomMaxParam, heights.bottom.max, 'Length')
+			except:
+				pass
+			try:
+				_(room).set(values.rawTopMinParam, heights.top.min, 'Length')
+				_(room).set(values.rawTopMaxParam, heights.top.max, 'Length')
+			except:
+				pass
 			heights = _(room).traceHeight(view3D, finElements, float(values.gridSize))
-			_(room).set(values.finBottomMinParam, heights.bottom.min, 'Length')
-			_(room).set(values.finBottomMaxParam, heights.bottom.max, 'Length')
-			_(room).set(values.finTopMinParam, heights.top.min, 'Length')
-			_(room).set(values.finTopMaxParam, heights.top.max, 'Length')
+			try:
+				_(room).set(values.finBottomMinParam, heights.bottom.min, 'Length')
+				_(room).set(values.finBottomMaxParam, heights.bottom.max, 'Length')
+			except:
+				pass
+			try:
+				_(room).set(values.finTopMinParam, heights.top.min, 'Length')
+				_(room).set(values.finTopMaxParam, heights.top.max, 'Length')
+			except:
+				pass
 			counter = counter + 1
 			pb.update_progress(counter, max_value)
 
