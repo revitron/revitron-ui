@@ -122,7 +122,7 @@ class TabWindow(FlexForm):
 config = revitron.DocumentConfigStorage().get('revitron.rooms.calculateRoomHeights', defaultdict())
 
 fields = addField(OrderedDict(), config, 'roomFltrParam', 'Room Filter Parameter Name', 'TextBox', tab = 'Settings')
-fields = addField(fields, config, 'roomFltrRegex', 'Room Filter Value', 'TextBox', tab = 'Settings')
+fields = addField(fields, config, 'roomFltrRegex', 'Room Filter Regex', 'TextBox', tab = 'Settings')
 fields = addField(fields, config, 'roomFltrInvert', 'Invert Room Filter', 'CheckBox', tab = 'Settings')
 
 fields = addField(fields, config, 'rawEleFltrParam', 'Raw Element Filter Parameter Name', 'TextBox', tab = 'Raw')
