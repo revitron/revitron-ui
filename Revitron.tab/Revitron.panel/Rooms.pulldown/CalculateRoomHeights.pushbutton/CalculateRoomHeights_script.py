@@ -122,11 +122,11 @@ class TabWindow(FlexForm):
 config = revitron.DocumentConfigStorage().get('revitron.rooms.calculateRoomHeights', defaultdict())
 
 fields = addField(OrderedDict(), config, 'roomFltrParam', 'Room Filter Parameter Name', 'TextBox', tab = 'Settings')
-fields = addField(fields, config, 'roomFltrRegex', 'Room Filter Regex', 'TextBox', tab = 'Settings')
+fields = addField(fields, config, 'roomFltrList', 'Room Filter List (separate multiple by comma)', 'TextBox', tab = 'Settings')
 fields = addField(fields, config, 'roomFltrInvert', 'Invert Room Filter', 'CheckBox', tab = 'Settings')
 
 fields = addField(fields, config, 'rawEleFltrParam', 'Raw Element Filter Parameter Name', 'TextBox', tab = 'Raw')
-fields = addField(fields, config, 'rawEleFltrRegex', 'Raw Element Filter Regex', 'TextBox', tab = 'Raw')
+fields = addField(fields, config, 'rawEleFltrList', 'Raw Element Filter List (separate multiple by comma)', 'TextBox', tab = 'Raw')
 fields = addField(fields, config, 'rawEleFltrInvert', 'Invert Raw Element Filter', 'CheckBox', tab = 'Raw')
 
 fields = addField(fields, config, 'rawBottomMinParam', 'Min Top of Floor (Raw) Parameter Name', 'TextBox', default = 'Raw: Top of floor (min)', tab = 'Raw')
@@ -135,7 +135,7 @@ fields = addField(fields, config, 'rawTopMinParam', 'Min Bottom of Ceiling (Raw)
 fields = addField(fields, config, 'rawTopMaxParam', 'Max Bottom of Ceiling (Raw) Parameter Name', 'TextBox', default = 'Raw: Bottom of ceiling (max)', tab = 'Raw')
 
 fields = addField(fields, config, 'finEleFltrParam', 'Finished Element Filter Parameter Name', 'TextBox', tab = 'Finished')
-fields = addField(fields, config, 'finEleFltrRegex', 'Finished Element Filter Regex', 'TextBox', tab = 'Finished')
+fields = addField(fields, config, 'finEleFltrList', 'Finished Element Filter List (separate multiple by comma)', 'TextBox', tab = 'Finished')
 fields = addField(fields, config, 'finEleFltrInvert', 'Invert Finished Element Filter', 'CheckBox', tab = 'Finished')
 
 fields = addField(fields, config, 'finBottomMinParam', 'Min Top of Floor (Finished) Parameter Name', 'TextBox', default = 'Finished: Top of floor (min)', tab = 'Finished')
@@ -175,11 +175,10 @@ if form.values:
 
 		roomFilter = revitron.Filter().noTypes().byCategory('Rooms')
 
-		if values.roomFltrParam:
-			roomFilter = roomFilter.byRegex(values.roomFltrParam, 
-											values.roomFltrRegex, 
-											values.roomFltrInvert)
-		
+		if values.roomFltrParam and values.roomFltrList:
+			roomFilter = roomFilter.byStringContainsOneInCsv(values.roomFltrParam, 
+														 	 values.roomFltrList, 
+														 	 values.roomFltrInvert)
 		rooms = roomFilter.getElements()
 
 		rawElements = None
@@ -188,17 +187,17 @@ if form.values:
 		pb.update_progress(1, max_value)
 
 		if values.rawEleFltrParam:
-			rawFilter = revitron.Filter().byRegex(values.rawEleFltrParam, 
-												values.rawEleFltrRegex, 
-												values.rawEleFltrInvert)
+			rawFilter = revitron.Filter().byStringContainsOneInCsv(values.rawEleFltrParam, 
+																   values.rawEleFltrList, 
+																   values.rawEleFltrInvert)
 			rawElements = rawFilter.noTypes().getElementIds()
 
 		pb.update_progress(2, max_value)
 
 		if values.finEleFltrParam:
-			finFilter = revitron.Filter().byRegex(values.finEleFltrParam, 
-												values.finEleFltrRegex, 
-												values.finEleFltrInvert)
+			finFilter = revitron.Filter().byStringContainsOneInCsv(values.finEleFltrParam, 
+																   values.finEleFltrList, 
+																   values.finEleFltrInvert)
 			finElements = finFilter.noTypes().getElementIds()
 
 		pb.update_progress(3, max_value)
