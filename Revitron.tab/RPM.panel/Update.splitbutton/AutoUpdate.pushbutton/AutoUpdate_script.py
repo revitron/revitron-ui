@@ -52,7 +52,6 @@ def __selfinit__(script_cmp, ui_button_cmp, __rvt__):
 	if os.path.isfile(autoUpdateFile):
 		update_icon = script_cmp.get_bundle_file('on.png')
 		ui_button_cmp.set_icon(update_icon, icon_size=ICON_LARGE)
-		
 	return True
 
 if __name__ == '__main__':
