@@ -1,3 +1,5 @@
 layout:
   - CheckForUpdates[title:Check for\nUpdates]
   - ForceUpdate[title:Force Extension\nUpdates]
+  - -----
+  - AutoUpdate[title:Auto\nUpdates]
