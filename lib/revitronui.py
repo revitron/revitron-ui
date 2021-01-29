@@ -53,6 +53,7 @@ class DWG:
 	def export(self, sheet):
 		return self.exporter.exportSheet(sheet, 
 					  					 self.config.get('Sheet_Export_Directory'), 
+										 getattr(revitron.DB.ExportUnit, self.config.get('DWG_Export_Unit')),
 						 				 self.config.get('Sheet_Naming_Template'))
 
 
