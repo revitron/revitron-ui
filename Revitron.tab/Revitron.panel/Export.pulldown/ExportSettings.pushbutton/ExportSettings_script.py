@@ -15,6 +15,17 @@ def addFields(components, fields):
 			components.append(TextBox(key, Text=config.get(key)))
 	return components
 
+
+def addComboBox(components, config, name, values):
+	key = revitron.String.sanitize(name)
+	default = values[0]
+	if config.get(key) in values:
+		default = config.get(key)
+	components.append(Label(name))
+	components.append(ComboBox(key, values, default=default))
+	return components
+
+
 def openHelp(sender, e):
 	script.open_url('https://revitron-ui.readthedocs.io/en/latest/tools/export.html')
 
@@ -30,16 +41,12 @@ if not revitron.Document().isFamily():
 		'Default Sheet Size',
 		'Sheet Orientation Parameter Name'
 	])
-
-	orientationField = 'Default Sheet Orientation'
-	orientationKey = revitron.String.sanitize(orientationField)
-	orientations = ['Landscape', 'Portrait']
-	default = orientations[0]
-	if config.get(orientationKey) in orientations:
-		default = config.get(orientationKey)
-	components.append(Label(orientationField))
-	components.append(ComboBox(orientationKey, orientations, default=default))
 	
+	components = addComboBox(components,
+							 config,
+							 'Default Sheet Orientation',
+							 ['Landscape', 'Portrait'])
+
 	components = addFields(components, 
 	[
 		'---',
@@ -48,7 +55,17 @@ if not revitron.Document().isFamily():
 		'---',
 		'DWG Export Setup'
 	])
-	
+
+	components = addComboBox(components,
+							 config,
+							 'DWG Export Setup',
+							 list(revitron.DB.BaseExportOptions.GetPredefinedSetupNames(revitron.DOC)))
+
+	components = addComboBox(components,
+							 config,
+							 'DWG Export Unit',
+							 ['Meter', 'Centimeter', 'Millimeter', 'Foot', 'Inch'])
+
 	components.append(Label(''))
 	components.append(Button('Open Documentation', on_click=openHelp))
 	components.append(Button('Save'))
