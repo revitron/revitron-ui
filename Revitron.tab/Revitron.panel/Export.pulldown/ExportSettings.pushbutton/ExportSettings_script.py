@@ -52,8 +52,7 @@ if not revitron.Document().isFamily():
 		'---',
 		'PDF Printer Address',
 		'PDF Temporary Output Path',
-		'---',
-		'DWG Export Setup'
+		'---'
 	])
 
 	components = addComboBox(components,
