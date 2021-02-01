@@ -18,6 +18,8 @@ def addFields(components, fields):
 
 def addComboBox(components, config, name, values):
 	key = revitron.String.sanitize(name)
+	if not values:
+		values = ['']
 	default = values[0]
 	if config.get(key) in values:
 		default = config.get(key)
