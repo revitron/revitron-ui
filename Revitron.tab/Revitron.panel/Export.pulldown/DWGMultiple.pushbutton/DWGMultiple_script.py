@@ -3,12 +3,12 @@ from pyrevit import script
 from pyrevit import forms
 import sys, os
 
+dwg = DWG()
 sheets = forms.select_sheets()
 
 if not sheets:
     sys.exit()
 
-dwg = DWG()
 dirs = []
 
 max_value = len(sheets)
