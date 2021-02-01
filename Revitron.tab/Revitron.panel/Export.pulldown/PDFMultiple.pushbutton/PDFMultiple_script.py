@@ -3,12 +3,12 @@ from pyrevit import script
 from pyrevit import forms
 import sys, os
 
+pdf = PDF()
 sheets = forms.select_sheets()
 
 if not sheets:
     sys.exit()
 
-pdf = PDF()
 dirs = []
 
 max_value = len(sheets)
