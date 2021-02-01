@@ -7,6 +7,12 @@ from pyrevit import output
 from collections import defaultdict
 
 
+class Alert:
+
+	def __init__(self, text):
+		forms.alert(text, title='Note', ok=True, exitscript=True)
+
+
 class ElementInfo:
 
 	def __init__(self, elements):
@@ -44,15 +50,17 @@ class DWG:
 	
 	def __init__(self):
 		self.config = revitron.DocumentConfigStorage().get('revitron.export', defaultdict())
-		if not self.config:
-			print('Please configure your DWG exporter first!')
-			sys.exit()
-		setup = self.config.get('DWG_Export_Setup')
-		self.exporter = revitron.DWGExporter(setup)
+		try:
+			self.exporter = revitron.DWGExporter(self.config.get('DWG_Export_Setup'))
+		except:
+			Alert('Please configure your DWG exporter first!')
+		self.directory = self.config.get('Sheet_Export_Directory', False)
+		if not self.directory:
+			Alert('Please configure the export directory first!')
   
 	def export(self, sheet):
 		return self.exporter.exportSheet(sheet, 
-					  					 self.config.get('Sheet_Export_Directory'), 
+					  					 self.directory, 
 										 getattr(revitron.DB.ExportUnit, self.config.get('DWG_Export_Unit')),
 						 				 self.config.get('Sheet_Naming_Template'))
 
@@ -61,12 +69,23 @@ class PDF:
 	
 	def __init__(self):
 		self.config = revitron.DocumentConfigStorage().get('revitron.export', defaultdict())
-		if not self.config:
-			print('Please configure your PDF exporter first!')
-			sys.exit()
-		self.exporter = revitron.PDFExporter(self.config.get('PDF_Printer_Address'), self.config.get('PDF_Temporary_Output_Path'))
+		try:
+			address = self.config.get('PDF_Printer_Address')
+			output = self.config.get('PDF_Temporary_Output_Path')
+			self.directory = self.config.get('Sheet_Export_Directory')
+			self.defaultSize = self.config.get('Default_Sheet_Size')
+		except:					
+			Alert('Please configure your PDF exporter first!')
+		if not address:
+			Alert('Please configure the PDF Printer address first!')
+		if not output:
+			Alert('Please configure the temporary PDF output directory first!')
+		if not self.directory:
+			Alert('Please configure the export directory first!')
+		if not self.defaultSize:
+			Alert('Please configure a paper size settings first!')
+		self.exporter = revitron.PDFExporter(address, output)
 		self.sizeParamName = self.config.get('Sheet_Size_Parameter_Name')
-		self.defaultSize = self.config.get('Default_Sheet_Size')
 		self.orientationParamName = self.config.get('Sheet_Orientation_Parameter_Name')
 		self.defaultOrientation = self.config.get('Default_Sheet_Orientation')
 		
@@ -90,7 +109,7 @@ class PDF:
 		return self.exporter.printSheet(sheet, 
 										sheetSize, 
 										sheetOrientation, 
-										self.config.get('Sheet_Export_Directory'), 
+										self.directory, 
 										self.config.get('Sheet_Naming_Template')
 										)
 
