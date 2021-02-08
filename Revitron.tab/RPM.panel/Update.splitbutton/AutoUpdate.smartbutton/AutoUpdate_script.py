@@ -10,6 +10,47 @@ from _winreg import EnumValue, OpenKey, HKEY_CURRENT_USER, KEY_READ
 
 __context__ = 'zero-doc'
 
+template = r"""
+@echo off
+
+set pwd=%CD%
+set pyrevit={}
+set extensions={}
+set log="C:\temp\pyRevitUpdate.log"
+
+echo %DATE% >%log% 2>&1
+echo %TIME% >>%log% 2>&1
+
+call :pull %pyrevit% >>%log% 2>&1
+
+cd "%extensions%"
+
+for /D %%d in (*) do (
+	if exist "%%d\.git" (
+		call :pull %extensions%\%%d >>%log% 2>&1
+	)
+)
+
+cd %pwd%
+
+goto:end
+
+:pull
+echo:
+cd %1
+echo %1
+set "status="
+for /f "delims=" %%s in ('git status --porcelain') do set status=%%s
+if not "%status%" == "" (
+	echo Working copy is dirty - skipping
+) else (
+	git pull
+)
+cd ..
+
+:end
+"""
+
 def getBundleFile(name):
     return os.path.join(EXEC_PARAMS.command_path, name)
 
@@ -60,9 +101,6 @@ if __name__ == '__main__':
 		setIcon(False)
 	else:
 		f = open(autoUpdateFile, 'w')
-		f.write('call {}\AutoUpdate.bat {} {}'.format(
-			os.path.dirname(__file__), 
-			config.RPM_PYREVIT_DIR, 
-			config.RPM_EXTENSIONS_DIR))
+		f.write(template.format(config.RPM_PYREVIT_DIR, config.RPM_EXTENSIONS_DIR))
 		f.close()
 		setIcon(True)
