@@ -85,7 +85,7 @@ def getStartUpFolder():
 		pass
 
 startUpFolder = getStartUpFolder()
-autoUpdateFile = os.path.join(startUpFolder, 'pyRevitAutoUpdate.bat')
+autoUpdateFile = os.path.join(startUpFolder, 'pyRevitUpdate.bat')
 
 def __selfinit__(script_cmp, ui_button_cmp, __rvt__):
 	if os.system('git --version') != 0:
