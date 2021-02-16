@@ -152,5 +152,8 @@ class RoomTags():
 			with forms.ProgressBar(title='Tagging rooms ... ({value} of {max_value})') as pb:
 				for room in rooms:
 					counter = counter + 1
-					method(room, roomTagType.Id)
+					try:
+						method(room, roomTagType.Id)
+					except:
+						pass
 					pb.update_progress(counter, max_value)
