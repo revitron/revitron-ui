@@ -1,2 +1,3 @@
 layout:
+  - ShowHistoryForSelection[title:Show History for Selected Elements]
   - Setup[title:Configure Logging]
