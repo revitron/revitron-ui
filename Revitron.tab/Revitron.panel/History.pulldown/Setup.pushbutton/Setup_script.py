@@ -8,27 +8,33 @@ if not forms.check_workshared(revitron.DOC):
 config = revitron.DocumentConfigStorage().get('revitron.history', dict())
 sqliteFile = config.get('file', '')
 
-msg = """Logging transactions is enabled for this Revit model. The following database is used:
+msgDisabled = """Logging transactions is disabled for this Revit model. Select or create a database to enable logging."""
+
+msgEnabled = """Logging transactions is enabled for this Revit model. The following database is used:
 
 {}"""
 
-def selectFile(): 
+def alertReopen():
+	forms.alert('Note that changes won\'t take effect until the current file is closed and reopened again.')
+
+res = None
+optionSelect = 'Select or create database'
+optionDisable = 'Disable logging'
+optionCancel = 'Close'
+
+if not sqliteFile:
+	res = forms.alert(msgDisabled, options=[optionSelect, optionCancel])
+else:
+	res = forms.alert(msgEnabled.format(sqliteFile), options=[optionSelect, optionDisable, optionCancel])
+
+if res == optionSelect:
 	sqliteFile = forms.save_file(file_ext='sqlite',
 								default_name='{}.sqlite'.format(revitron.DOC.Title),
 								unc_paths=False)
 	if sqliteFile:
 		revitron.DocumentConfigStorage().set('revitron.history', {'file': sqliteFile})
+		alertReopen()
 
-res = None
-optionChange = 'Change database'
-optionDisable = 'Disable logging'
-optionCancel = 'Keep settings and close'
-
-if not sqliteFile:
-	selectFile()
-else:
-	res = forms.alert(msg.format(sqliteFile),
-					  options=[optionChange, optionDisable, optionCancel])
-
-if res == optionChange:
-	selectFile()
+if res == optionDisable:
+	revitron.DocumentConfigStorage().set('revitron.history', dict())
+	alertReopen()
