@@ -43,10 +43,14 @@ for element in selection:
 	info += revitron.Parameter(element, 'Family and Type').getValueString()
 	out.print_md('###' + info.strip() + ' ' + out.linkify(element.Id))
 
-	conn = sqlite3.connect(sqliteFile)
-	cursor = conn.cursor()
-	cursor.execute(sqlTransactions, {'id': element.Id.ToString()})
-	rows = cursor.fetchall()
+	try:
+		conn = sqlite3.connect(sqliteFile)
+		cursor = conn.cursor()
+		cursor.execute(sqlTransactions, {'id': element.Id.ToString()})
+		rows = cursor.fetchall()
+	except:
+		out.close()
+		forms.alert('There hasn\'t been anything logged yet!', exitscript=True)
 
 	if rows:
 
