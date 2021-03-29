@@ -16,12 +16,15 @@ if not sqliteFile:
 
 out = script.get_output()
 
-conn = sqlite3.connect(sqliteFile)
-cursor = conn.cursor()
+try:
+	conn = sqlite3.connect(sqliteFile)
+	cursor = conn.cursor()
+	users = ['*']
+	cursor.execute("SELECT user FROM syncs GROUP BY user ORDER BY user COLLATE NOCASE ASC")
+	rows = cursor.fetchall()
+except:
+	forms.alert('There hasn\'t been anything logged yet!', exitscript=True)
 
-users = ['*']
-cursor.execute("SELECT user FROM syncs GROUP BY user ORDER BY user COLLATE NOCASE ASC")
-rows = cursor.fetchall()
 for row in rows:
 	users.append(row[0])
 
