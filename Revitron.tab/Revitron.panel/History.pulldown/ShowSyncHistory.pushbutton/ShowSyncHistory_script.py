@@ -12,7 +12,7 @@ config = revitron.DocumentConfigStorage().get('revitron.history', dict())
 sqliteFile = config.get('file', '')
 
 if not sqliteFile:
-	forms.alert('Logging is disabled for this Revit model!', exitscript=True)
+	forms.alert('There hasn\'t been anything logged yet!', exitscript=True)
 
 out = script.get_output()
 
