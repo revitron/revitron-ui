@@ -1,4 +1,5 @@
 import revitron
+import revitronui
 import sqlite3
 import json
 from datetime import datetime
@@ -60,11 +61,7 @@ syncMinutes = []
 for row in rows:
 	table += '<tr>'
 	table += tableCell(row[0])
-	dateFormat = '%Y-%m-%d %H:%M:%S'
-	started = datetime.strptime(row[0], dateFormat)
-	finished = datetime.strptime(row[1], dateFormat)
-	dateDiff = finished - started
-	minutes = round(dateDiff.total_seconds() / 60, 1)
+	minutes = revitronui.Date.diff(row[0], row[1])
 	syncMinutes.append(minutes)
 	table += tableCell(str(minutes) + ' min')
 	table += tableCell(str(round(float(str(row[2]).replace(' mb', '')), 2)) + ' mb')
