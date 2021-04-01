@@ -1,4 +1,4 @@
 layout:
-  - ShowHistoryForSelection[title:Show History for Selected Elements]
-  - ShowSyncHistory[title:Show Sync History for this Model]
+  - SelectionHistory[title:History of Selected Elements]
+  - SyncHistory[title:Sync History of this Model]
   - Setup[title:Configure Logging]
