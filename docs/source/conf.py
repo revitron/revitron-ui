@@ -73,7 +73,8 @@ html_context = {
     'landing_page': {
         'menu': [
             {'title': 'Revitron', 'url': 'https://revitron.readthedocs.io/'},
-            {'title': 'User Guide', 'url': 'user-guide.html'}
+            {'title': 'User Guide', 'url': 'user-guide.html'},
+            {'title': '♡ Sponsor', 'url': 'https://github.com/sponsors/marcantondahmen'}
         ]
     }
 }
