@@ -14,6 +14,6 @@ if _(sheet).getClassName() == 'ViewSheet':
 		script.get_output().print_html(':smiling_face: Exported <em>{}</em>'.format(os.path.basename(path)))
 		script.show_folder_in_explorer(os.path.dirname(path))
 	else:
-		script.get_output().print_html(':pouting_face: Error exporting <em>{}</em>'.format(os.path.basename(path)))
+		script.get_output().print_html(':pouting_face: Error exporting')
 
 
