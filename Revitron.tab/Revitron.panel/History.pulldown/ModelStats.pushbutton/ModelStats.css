@@ -1,0 +1,11 @@
+r-flex {
+	display: flex;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+r-flex canvas {
+	flex-basis: 80%;
+	max-width: 80%;
+	margin: 0 -15%;
+}
