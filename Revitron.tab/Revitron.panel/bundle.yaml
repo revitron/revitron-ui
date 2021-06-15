@@ -1,5 +1,5 @@
 layout:
-  - SearchAndReplace[title:Search &\n Replace]
+  - Replace
   -	Select
   - Info
   - Utils
