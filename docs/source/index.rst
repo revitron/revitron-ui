@@ -14,6 +14,8 @@ Revitron UI
    `Docs <get-started.html>`_
    `GitHub <https://github.com/revitron/revitron-ui>`_
 
+.. image:: https://img.shields.io/github/v/tag/revitron/revitron-ui?label=Release&style=flat-square&labelColor=f6f6f7&color=f6f6f7
+
 .. toctree::
    :caption: Revitron UI
    :maxdepth: 2

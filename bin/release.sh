@@ -68,7 +68,7 @@ done
 echo
 
 # Updating version numbers.
-sed -i "s|Version.*|Version $tag|g" "./docs/source/index.rst"
+sed -i "s|REVITRON_UI_VERSION.*|REVITRON_UI_VERSION = '$tag'|g" "./lib/revitronui/__init__.py"
 
 # Commit, merge and tag.
 git add -A && git commit -m "build(release): prepared release $tag"

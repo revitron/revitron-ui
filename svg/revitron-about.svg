@@ -10,8 +10,8 @@ style="enable-background:new 0 0 1000 500;"
 xml:space="preserve"
 >
 	<style type="text/css">
-		.st0{fill:#FFFFFF;}
-		.st1{fill:#2c3e50;}
+		.st0{fill:transparent;}
+		.st1{fill:#ffffff;}
 	</style>
 	<path class="st0" d="M990,500H10c-5.5,0-10-4.5-10-10V10C0,4.5,4.5,0,10,0h980c5.5,0,10,4.5,10,10v480
 		C1000,495.5,995.5,500,990,500z"/>
