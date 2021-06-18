@@ -24,7 +24,7 @@ class ElementInfo:
 				out.linkify(element.Id),
 				_(element).getClassName(),
 				_(element).getCategoryName(),
-				revitron.Parameter(element, 'Family and Type').getValueString(),
+				_(element).getFamilyAndTypeName(),
 				''.join(dependents)
 			])
 
