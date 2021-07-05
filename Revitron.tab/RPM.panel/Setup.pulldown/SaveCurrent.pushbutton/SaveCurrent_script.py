@@ -14,6 +14,6 @@ installed = manager.getInstalled()
 configContent = ''
 
 for extension in installed.values():
-	configContent += '{}\t{}\n'.format(extension['type'], extension['repo']) 
+	configContent += '{}\t{}\r\n'.format(extension['type'], extension['repo']) 
 
 revitron.DocumentConfigStorage().set('rpm.extensions', configContent)
