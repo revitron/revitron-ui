@@ -1,3 +1,4 @@
 layout:
-  - ProjectSetup[title:Project Setup]
+  - ProjectSetup[title:Edit Project Setup]
+  - SaveCurrent[title:Save Current Setup to this Project]
   - InstallExtensions[title:Install Extensions]
