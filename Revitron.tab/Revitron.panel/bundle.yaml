@@ -1,6 +1,6 @@
 layout:
-  - Replace
   - Select
+  - Replace
   - Info
   - Utils
   - Export
