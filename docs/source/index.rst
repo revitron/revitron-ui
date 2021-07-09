@@ -30,6 +30,5 @@ Revitron UI
 
    Revitron <https://revitron.readthedocs.io/>
    Developer Guide <https://revitron.readthedocs.io/en/latest/revitron.html>
-   Unit Tests <https://github.com/revitron/revitron-tests>
    GitHub <https://github.com/revitron/revitron-ui>
    ♡ Sponsor <https://github.com/sponsors/marcantondahmen>
