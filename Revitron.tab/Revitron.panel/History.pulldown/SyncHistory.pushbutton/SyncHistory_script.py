@@ -6,8 +6,12 @@ from datetime import datetime
 from pyrevit import script
 from pyrevit import forms
 
+
 def tableCell(text):
-	return '<td style="white-space: nowrap; vertical-align: top; text-align: left; padding-right: 30px;">{}</td>'.format(str(text))
+	return '<td style="white-space: nowrap; vertical-align: top; text-align: left; padding-right: 30px;">{}</td>'.format(
+	    str(text)
+	)
+
 
 config = revitron.DocumentConfigStorage().get('revitron.history', dict())
 sqliteFile = config.get('file', '')
@@ -21,7 +25,9 @@ try:
 	conn = sqlite3.connect(sqliteFile)
 	cursor = conn.cursor()
 	users = ['*']
-	cursor.execute("SELECT user FROM syncs GROUP BY user ORDER BY user COLLATE NOCASE ASC")
+	cursor.execute(
+	    "SELECT user FROM syncs GROUP BY user ORDER BY user COLLATE NOCASE ASC"
+	)
 	rows = cursor.fetchall()
 except:
 	forms.alert('There hasn\'t been anything logged yet!', exitscript=True)
@@ -53,7 +59,9 @@ table = '<table>'
 
 table += '<tr>'
 for title in ['Started', 'Duration', 'Size', 'User']:
-	table += '<th style="font-weight: normal; text-align: left; color: #aaa;">{}</th>'.format(title)
+	table += '<th style="font-weight: normal; text-align: left; color: #aaa;">{}</th>'.format(
+	    title
+	)
 table += '</tr>'
 
 syncMinutes = []
@@ -66,11 +74,10 @@ for row in rows:
 	table += tableCell(str(minutes) + ' min')
 	table += tableCell(str(round(float(str(row[2]).replace(' mb', '')), 2)) + ' mb')
 	table += tableCell(row[3])
-	table += '</tr>' 
+	table += '</tr>'
 
-table += '</table>'  
+table += '</table>'
 
 averageSyncTime = sum(syncMinutes) / float(len(syncMinutes))
 out.print_md('**Average sync time is ' + str(averageSyncTime) + ' min**')
 out.print_html(table)
-

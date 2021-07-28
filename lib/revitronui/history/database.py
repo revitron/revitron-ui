@@ -4,8 +4,7 @@ import sqlite3
 
 class HistoryDatabase:
 
-
-	insertSync =         """INSERT INTO syncs(
+	insertSync = """INSERT INTO syncs(
 								startTime,
 								finishTime,
 								size,
@@ -18,8 +17,7 @@ class HistoryDatabase:
 								:user
 							)"""
 
-
-	insertTransaction =  """INSERT INTO transactions(
+	insertTransaction = """INSERT INTO transactions(
 								elementId,
 								transactions,
 								syncId
@@ -30,8 +28,7 @@ class HistoryDatabase:
 								:syncId
 							)"""
 
-
-	createSyncs =        """CREATE TABLE IF NOT EXISTS syncs(
+	createSyncs = """CREATE TABLE IF NOT EXISTS syncs(
 								syncId integer PRIMARY KEY AUTOINCREMENT,
 								startTime text,
 								finishTime text,
@@ -39,22 +36,17 @@ class HistoryDatabase:
 								user text
 							)"""
 
-
 	createTransactions = """CREATE TABLE IF NOT EXISTS transactions(
 								elementId integer,
 								transactions text,
 								syncId integer
 							)"""
-	
- 
-	pragmaJournal = "PRAGMA journal_mode=OFF"
 
+	pragmaJournal = "PRAGMA journal_mode=OFF"
 
 	pragmaFK = "PRAGMA foreign_keys = ON"
 
-
 	syncLimit = 1750
-
 
 	def __init__(self, db):
 		self.db = db
@@ -66,11 +58,16 @@ class HistoryDatabase:
 		# Index elements.
 		conn.execute("CREATE INDEX IF NOT EXISTS elementIndex ON transactions(elementId)")
 		# Limit rows.
-		conn.execute("DELETE FROM syncs WHERE syncId < ((SELECT MAX(syncId) FROM syncs) - {})".format(str(self.syncLimit)))
-		conn.execute("DELETE FROM transactions WHERE syncId < ((SELECT MAX(syncId) FROM transactions) - {})".format(str(self.syncLimit)))
+		conn.execute(
+		    "DELETE FROM syncs WHERE syncId < ((SELECT MAX(syncId) FROM syncs) - {})".
+		    format(str(self.syncLimit))
+		)
+		conn.execute(
+		    "DELETE FROM transactions WHERE syncId < ((SELECT MAX(syncId) FROM transactions) - {})"
+		    .format(str(self.syncLimit))
+		)
 		conn.commit()
 		conn.close()
-
 
 	def sync(self, row):
 		conn = sqlite3.connect(self.db)
@@ -83,7 +80,6 @@ class HistoryDatabase:
 		conn.close()
 		return rowId
 
-
 	def transactions(self, data, syncId):
 		conn = sqlite3.connect(self.db)
 		cursor = conn.cursor()
@@ -95,7 +91,7 @@ class HistoryDatabase:
 		for row in data:
 			row['syncId'] = syncRowId
 			cursor.execute(self.insertTransaction, row)
-		
+
 		cursor.close()
 		conn.commit()
 		conn.close()

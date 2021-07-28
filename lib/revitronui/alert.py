@@ -1,5 +1,6 @@
 from pyrevit import forms
 
+
 class Alert:
 
 	def __init__(self, text):

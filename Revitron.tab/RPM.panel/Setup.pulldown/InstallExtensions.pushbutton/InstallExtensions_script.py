@@ -9,7 +9,6 @@ import rpm
 from pyrevit.coreutils import logger
 from pyrevit import script
 
-
 mlogger = logger.get_logger(__name__)
 
 if not revitron.Document().isFamily():
@@ -26,9 +25,9 @@ if not revitron.Document().isFamily():
 	lines = revitron.DocumentConfigStorage().get('rpm.extensions', '').split('\r\n')
 
 	for line in lines:
-		
+
 		items = line.split('\t')
-		
+
 		try:
 			extType = items[0].strip()
 			extRepo = items[1].strip()
@@ -46,6 +45,6 @@ if not revitron.Document().isFamily():
 					mlogger.error('Installing {} failed'.format(extName))
 				except:
 					pass
-	
+
 	out.print_html('<br>Installation has finished. Reloading ...')
 	rpm.system.Session.reload()

@@ -1,4 +1,4 @@
 import revitron
-import revitronui 
+import revitronui
 
 revitronui.ElementInfo(revitron.Selection().get()).show('Info: Selected Elements')

@@ -2,6 +2,7 @@ from pyrevit import script
 from pyrevit.loader import sessionmgr
 from pyrevit.loader import sessioninfo
 
+
 class Session:
 
 	@staticmethod

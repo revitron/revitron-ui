@@ -20,18 +20,17 @@ master_doc = 'index'
 # -- Project information -----------------------------------------------------
 
 project = 'Revitron UI'
-copyright = '{}, <a href="https://marcdahmen.de">Marc Anton Dahmen</a>'.format(datetime.datetime.now().year)
+copyright = '{}, <a href="https://marcdahmen.de">Marc Anton Dahmen</a>'.format(
+    datetime.datetime.now().year
+)
 author = 'Marc Anton Dahmen'
-
 
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-    'sphinxext.opengraph'
-]
+extensions = ['sphinxext.opengraph']
 
 # Open Graph extension config. https://pypi.org/project/sphinxext-opengraph/
 ogp_site_url = "https://revitron-ui.readthedocs.io/"
@@ -49,7 +48,6 @@ templates_path = []
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
-
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -71,11 +69,16 @@ html_favicon = '_static/favicon.ico'
 
 html_context = {
     'landing_page': {
-        'menu': [
-            {'title': 'Revitron', 'url': 'https://revitron.readthedocs.io/'},
-            {'title': 'User Guide', 'url': 'user-guide.html'},
-            {'title': '♡ Sponsor', 'url': 'https://github.com/sponsors/marcantondahmen'}
-        ]
+        'menu': [{
+            'title': 'Revitron',
+            'url': 'https://revitron.readthedocs.io/'
+        }, {
+            'title': 'User Guide',
+            'url': 'user-guide.html'
+        }, {
+            'title': '♡ Sponsor',
+            'url': 'https://github.com/sponsors/marcantondahmen'
+        }]
     }
 }
 

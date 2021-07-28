@@ -2,10 +2,14 @@ import revitron
 import sqlite3
 import json
 from pyrevit import script
-from pyrevit import forms 
+from pyrevit import forms
+
 
 def tableCell(text):
-	return '<td style="white-space: nowrap; vertical-align: top; text-align: left; padding-right: 30px;">{}</td>'.format(text)
+	return '<td style="white-space: nowrap; vertical-align: top; text-align: left; padding-right: 30px;">{}</td>'.format(
+	    text
+	)
+
 
 config = revitron.DocumentConfigStorage().get('revitron.history', dict())
 sqliteFile = config.get('file', '')
@@ -25,9 +29,9 @@ sqlSync = "SELECT startTime, user FROM syncs WHERE syncId = :id"
 out.print_md('Open Log for: **{}**<br>'.format(revitron.DOC.Title))
 
 for element in selection:
-	
+
 	out.print_html('<hr style="border: none; border-bottom: 1px dotted #ccc;" />')
-	
+
 	info = ''
 	try:
 		if element.Category is not None:
@@ -74,14 +78,12 @@ for element in selection:
 			transactions = json.loads(row[0])
 			table += tableCell(',<br>'.join(list(reversed(transactions))))
 			table += '</tr>'
-		
-		table += '</table>'  
+
+		table += '</table>'
 		out.print_html(table)
-	
+
 	else:
-		
+
 		out.print_md('**This element has no history yet.**')
 
 	out.print_html('<br>')
-
-
