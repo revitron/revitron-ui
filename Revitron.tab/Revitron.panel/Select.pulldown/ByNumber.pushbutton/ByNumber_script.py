@@ -57,7 +57,7 @@ if 'value' in form.values:
 			.noTypes()
 			.getElementIds()[0]
 		)
-		unit = _(el).getParameter(form.values['parameter']).unit()
+		unit = _(el).getParameter(form.values['parameter']).unit
 		value = revitron.Unit.convertToInternalUnit(form.values['value'], unit)
 	except:
 		value = float(form.values['value'])
