@@ -8,7 +8,8 @@ class DWG:
 	def __init__(self):
 		import revitronui
 		self.config = revitron.DocumentConfigStorage().get(
-		    'revitron.export', defaultdict()
+		    'revitron.export',
+		    defaultdict()
 		)
 		try:
 			self.exporter = revitron.DWGExporter(self.config.get('DWG_Export_Setup'))
@@ -20,8 +21,10 @@ class DWG:
 
 	def export(self, sheet):
 		return self.exporter.exportSheet(
-		    sheet, self.directory,
-		    getattr(revitron.DB.ExportUnit, self.config.get('DWG_Export_Unit')),
+		    sheet,
+		    self.directory,
+		    getattr(revitron.DB.ExportUnit,
+		            self.config.get('DWG_Export_Unit')),
 		    self.config.get('Sheet_Naming_Template')
 		)
 
@@ -31,7 +34,8 @@ class PDF:
 	def __init__(self):
 		import revitronui
 		self.config = revitron.DocumentConfigStorage().get(
-		    'revitron.export', defaultdict()
+		    'revitron.export',
+		    defaultdict()
 		)
 		try:
 			address = self.config.get('PDF_Printer_Address')
@@ -71,6 +75,9 @@ class PDF:
 			sheetOrientation = self.defaultOrientation
 
 		return self.exporter.printSheet(
-		    sheet, sheetSize, sheetOrientation, self.directory,
+		    sheet,
+		    sheetSize,
+		    sheetOrientation,
+		    self.directory,
 		    self.config.get('Sheet_Naming_Template')
 		)

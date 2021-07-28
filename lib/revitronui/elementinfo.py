@@ -18,7 +18,8 @@ class ElementInfo:
 				depFamType = revitron.Parameter(dep, 'Family and Type').getValueString()
 				depInfo = '{} {}, {}'.format(
 				    out.linkify(dep.Id),
-				    _(dep).getCategoryName(), depFamType
+				    _(dep).getCategoryName(),
+				    depFamType
 				).strip(', ')
 				depInfo = depInfo + '<br>'
 				dependents.append(depInfo)
@@ -27,7 +28,8 @@ class ElementInfo:
 			    out.linkify(element.Id),
 			    _(element).getClassName(),
 			    _(element).getCategoryName(),
-			    _(element).getFamilyAndTypeName(), ''.join(dependents)
+			    _(element).getFamilyAndTypeName(),
+			    ''.join(dependents)
 			])
 
 	def show(self, title=''):
@@ -36,5 +38,9 @@ class ElementInfo:
 		out.print_table(
 		    self.info,
 		    title=title,
-		    columns=['ID', 'Class', 'Category', 'Family / Type', 'Dependent']
+		    columns=['ID',
+		             'Class',
+		             'Category',
+		             'Family / Type',
+		             'Dependent']
 		)

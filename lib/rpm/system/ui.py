@@ -23,7 +23,8 @@ class UI:
 			    'A pyRevit core update is ready to be installed.\n'
 			    'Note that all running Revit sessions will be closed automatically when installing the update.',
 			    title='pyRevit Update',
-			    options=[install, skip]
+			    options=[install,
+			             skip]
 			)
 			if res == install:
 				Update.pyRevit()
@@ -39,7 +40,8 @@ class UI:
 				res = forms.alert(
 				    'There are pyRevit extension updates ready to be installed.',
 				    title='pyRevit Extensions Updates',
-				    options=[install, skip]
+				    options=[install,
+				             skip]
 				)
 			if res == install:
 				UI.printLogo()

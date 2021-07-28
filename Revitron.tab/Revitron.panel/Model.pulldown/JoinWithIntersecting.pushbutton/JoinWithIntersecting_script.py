@@ -11,12 +11,16 @@ for element in revitron.Selection.get():
 	if _element.isNotOwned():
 		for intersected in revitron.Filter().byIntersection(element).getElements():
 			if not revitron.DB.JoinGeometryUtils.AreElementsJoined(
-			    revitron.DOC, element, intersected
+			    revitron.DOC,
+			    element,
+			    intersected
 			):
 				try:
 					if _(intersected).isNotOwned:
 						revitron.DB.JoinGeometryUtils.JoinGeometry(
-						    revitron.DOC, element, intersected
+						    revitron.DOC,
+						    element,
+						    intersected
 						)
 					else:
 						print(

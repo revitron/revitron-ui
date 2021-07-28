@@ -14,7 +14,13 @@ def openHelp(sender, e):
 
 
 def addField(
-    fields, config, name, title, component='TextBox', default='', tab='Settings'
+    fields,
+    config,
+    name,
+    title,
+    component='TextBox',
+    default='',
+    tab='Settings'
 ):
 	value = config.get(name)
 	if not value:
@@ -23,14 +29,19 @@ def addField(
 	if component == 'CheckBox':
 		fields[name] = revitron.AttrDict({
 		    'label':
-		    forms.Label('', **{"tab": tab}),
+		    forms.Label('',
+		                **{"tab": tab}),
 		    'input':
-		    _component(name, title, value, **{"tab": tab})
+		    _component(name,
+		               title,
+		               value,
+		               **{"tab": tab})
 		})
 	else:
 		kwargs = {'name': name, 'default': value, 'tab': tab}
 		fields[name] = revitron.AttrDict({
-		    'label': forms.Label(title, **{"tab": tab}),
+		    'label': forms.Label(title,
+		                         **{"tab": tab}),
 		    'input': _component(**kwargs)
 		})
 	return fields
@@ -118,7 +129,8 @@ class TabWindow(FlexForm):
 
 
 config = revitron.DocumentConfigStorage().get(
-    'revitron.rooms.calculateRoomHeights', defaultdict()
+    'revitron.rooms.calculateRoomHeights',
+    defaultdict()
 )
 
 fields = addField(
@@ -140,7 +152,12 @@ fields = addField(
 )
 
 fields = addField(
-    fields, config, 'roomFltrInvert', 'Invert Room Filter', 'CheckBox', tab='Settings'
+    fields,
+    config,
+    'roomFltrInvert',
+    'Invert Room Filter',
+    'CheckBox',
+    tab='Settings'
 )
 
 fields = addField(
@@ -300,13 +317,15 @@ if form.values:
 	transaction = revitron.Transaction(suppressWarnings=True)
 
 	revitron.DocumentConfigStorage().set(
-	    'revitron.rooms.calculateRoomHeights', form.values
+	    'revitron.rooms.calculateRoomHeights',
+	    form.values
 	)
 
 	max_value = 4
 
 	with ProgressBar(
-	    indeterminate=True, title='Preparing ... ({value} of {max_value})'
+	    indeterminate=True,
+	    title='Preparing ... ({value} of {max_value})'
 	) as pb:
 
 		pb.update_progress(0, max_value)
@@ -315,7 +334,9 @@ if form.values:
 
 		if values.roomFltrParam and values.roomFltrList:
 			roomFilter = roomFilter.byStringContainsOneInCsv(
-			    values.roomFltrParam, values.roomFltrList, values.roomFltrInvert
+			    values.roomFltrParam,
+			    values.roomFltrList,
+			    values.roomFltrInvert
 			)
 		rooms = roomFilter.getElements()
 
@@ -326,7 +347,9 @@ if form.values:
 
 		if values.rawEleFltrParam:
 			rawFilter = revitron.Filter().byStringContainsOneInCsv(
-			    values.rawEleFltrParam, values.rawEleFltrList, values.rawEleFltrInvert
+			    values.rawEleFltrParam,
+			    values.rawEleFltrList,
+			    values.rawEleFltrInvert
 			)
 			rawElements = rawFilter.noTypes().getElementIds()
 
@@ -334,7 +357,9 @@ if form.values:
 
 		if values.finEleFltrParam:
 			finFilter = revitron.Filter().byStringContainsOneInCsv(
-			    values.finEleFltrParam, values.finEleFltrList, values.finEleFltrInvert
+			    values.finEleFltrParam,
+			    values.finEleFltrList,
+			    values.finEleFltrInvert
 			)
 			finElements = finFilter.noTypes().getElementIds()
 

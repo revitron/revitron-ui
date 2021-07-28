@@ -31,7 +31,9 @@ if not sqliteFile:
 else:
 	res = forms.alert(
 	    msgEnabled.format(sqliteFile),
-	    options=[optionSelect, optionDisable, optionCancel]
+	    options=[optionSelect,
+	             optionDisable,
+	             optionCancel]
 	)
 
 if res == optionSelect:

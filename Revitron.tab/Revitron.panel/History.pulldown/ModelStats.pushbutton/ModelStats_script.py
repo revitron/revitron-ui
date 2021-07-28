@@ -31,8 +31,11 @@ try:
 	output.add_style('body { padding: 50px; }')
 
 	output.inject_to_head(
-	    'link', '', {
-	        'href': 'file:///{}'.format(__file__.replace('_script.py', '.css')),
+	    'link',
+	    '',
+	    {
+	        'href': 'file:///{}'.format(__file__.replace('_script.py',
+	                                                     '.css')),
 	        'rel': 'stylesheet'
 	    }
 	)

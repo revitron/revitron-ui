@@ -9,7 +9,8 @@ cancel = 'Cancel'
 res = forms.alert(
     'Updating will discard all local changes in your extension repositories!',
     title='Force Extension Update',
-    options=[update, cancel]
+    options=[update,
+             cancel]
 )
 
 if res == update:

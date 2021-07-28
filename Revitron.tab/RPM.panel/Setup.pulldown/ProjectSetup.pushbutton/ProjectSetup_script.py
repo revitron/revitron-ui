@@ -47,8 +47,11 @@ if not revitron.Document().isFamily():
 	        FontFamily=System.Windows.Media.FontFamily('Consolas'),
 	        FontSize=14
 	    ),
-	    Button('Open Documentation', on_click=openHelp, Width=650),
-	    Button('Save', Width=650)
+	    Button('Open Documentation',
+	           on_click=openHelp,
+	           Width=650),
+	    Button('Save',
+	           Width=650)
 	]
 
 	form = FlexForm('Project Extensions', components)
@@ -56,5 +59,6 @@ if not revitron.Document().isFamily():
 
 	if 'extensions' in form.values:
 		revitron.DocumentConfigStorage().set(
-		    'rpm.extensions', form.values.get('extensions')
+		    'rpm.extensions',
+		    form.values.get('extensions')
 		)
