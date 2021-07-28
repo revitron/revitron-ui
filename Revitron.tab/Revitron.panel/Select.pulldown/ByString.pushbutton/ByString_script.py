@@ -19,22 +19,26 @@ if 'Family and Type' in parameters:
 	defaultParameter = 'Family and Type'
 
 components = [
-	Label('Parameter Name'),
-	ComboBox('parameter', parameters, default=defaultParameter),
-	Label('Category'),
-	ComboBox('category', categories, default='All'),
-	Label('Search String'),
-	TextBox('search'),
-	Separator(),
-	CheckBox('invert', 'Invert Selection', default=False)
+    Label('Parameter Name'),
+    ComboBox('parameter', parameters, default=defaultParameter),
+    Label('Category'),
+    ComboBox('category', categories, default='All'),
+    Label('Search String'),
+    TextBox('search'),
+    Separator(),
+    CheckBox('invert', 'Invert Selection', default=False)
 ]
 
 if selection:
 	components.append(CheckBox('selection', 'Search in selection only', default=True))
 else:
 	components.append(CheckBox('viewOnly', 'Search in this view only', default=False))
-	
-components.append(Button('Select', Width=100, HorizontalAlignment=System.Windows.HorizontalAlignment.Right))
+
+components.append(
+    Button(
+        'Select', Width=100, HorizontalAlignment=System.Windows.HorizontalAlignment.Right
+    )
+)
 
 form = FlexForm('Select by String Parameter', components)
 form.show()
@@ -50,9 +54,9 @@ if 'search' in form.values:
 			scope = revitron.ACTIVE_VIEW.Id
 
 	fltr = (
-		revitron.Filter(scope)
-		.noTypes()
-		.byStringContains(form.values['parameter'], form.values['search'], form.values['invert'])
+	    revitron.Filter(scope).noTypes().byStringContains(
+	        form.values['parameter'], form.values['search'], form.values['invert']
+	    )
 	)
 
 	if form.values['category'] != 'All':

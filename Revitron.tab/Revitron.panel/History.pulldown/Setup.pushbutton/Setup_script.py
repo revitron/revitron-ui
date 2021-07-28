@@ -14,8 +14,12 @@ msgEnabled = """Logging transactions is enabled for this Revit model. The follow
 
 {}"""
 
+
 def alertReopen():
-	forms.alert('Note that changes won\'t take effect until the current file is closed and reopened again.')
+	forms.alert(
+	    'Note that changes won\'t take effect until the current file is closed and reopened again.'
+	)
+
 
 res = None
 optionSelect = 'Select or create database'
@@ -25,12 +29,17 @@ optionCancel = 'Close'
 if not sqliteFile:
 	res = forms.alert(msgDisabled, options=[optionSelect, optionCancel])
 else:
-	res = forms.alert(msgEnabled.format(sqliteFile), options=[optionSelect, optionDisable, optionCancel])
+	res = forms.alert(
+	    msgEnabled.format(sqliteFile),
+	    options=[optionSelect, optionDisable, optionCancel]
+	)
 
 if res == optionSelect:
-	sqliteFile = forms.save_file(file_ext='sqlite',
-								default_name='{}.sqlite'.format(revitron.DOC.Title),
-								unc_paths=False)
+	sqliteFile = forms.save_file(
+	    file_ext='sqlite',
+	    default_name='{}.sqlite'.format(revitron.DOC.Title),
+	    unc_paths=False
+	)
 	if sqliteFile:
 		revitron.DocumentConfigStorage().set('revitron.history', {'file': sqliteFile})
 		alertReopen()

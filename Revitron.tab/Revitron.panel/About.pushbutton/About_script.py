@@ -6,7 +6,7 @@ from pyrevit import script
 from pyrevit import output
 
 now = datetime.datetime.now()
-parent = os.path.dirname 
+parent = os.path.dirname
 html = """<h1>Revitron</h1>
 Library {} &mdash; UI {}
 

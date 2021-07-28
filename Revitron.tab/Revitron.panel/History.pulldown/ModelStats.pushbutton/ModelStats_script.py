@@ -1,5 +1,5 @@
 import revitron
-import revitronui 
+import revitronui
 import sqlite3
 import pyrevit
 import os
@@ -7,6 +7,7 @@ import os
 config = revitron.DocumentConfigStorage().get('revitron.history', dict())
 sqliteFile = config.get('file', '')
 output = pyrevit.output.get_output()
+
 
 def flexCharts(charts):
 	nodes = []
@@ -20,6 +21,7 @@ def flexCharts(charts):
 	for script in scripts:
 		output.inject_script(script, body=True)
 
+
 if not sqliteFile:
 	revitronui.Alert('Logging is disabled for this model!')
 
@@ -27,11 +29,13 @@ try:
 
 	output.print_html('<h1>Model Stats for {}</h1>'.format(revitron.DOC.Title))
 	output.add_style('body { padding: 50px; }')
-	
-	output.inject_to_head('link', '', {
-		'href': 'file:///{}'.format(__file__.replace('_script.py', '.css')),
-		'rel': 'stylesheet'
-	})
+
+	output.inject_to_head(
+	    'link', '', {
+	        'href': 'file:///{}'.format(__file__.replace('_script.py', '.css')),
+	        'rel': 'stylesheet'
+	    }
+	)
 
 	conn = sqlite3.connect(sqliteFile)
 	cursor = conn.cursor()
@@ -55,27 +59,26 @@ try:
 
 	output.print_html('<br>')
 
-	cursor.execute("""SELECT syncs.user, count(*) 
+	cursor.execute(
+	    """SELECT syncs.user, count(*) 
 		FROM syncs, transactions 
 		WHERE syncs.syncId=transactions.syncId
-		GROUP BY syncs.user""")
+		GROUP BY syncs.user"""
+	)
 	rows = cursor.fetchall()
 	users = [i[0] for i in rows]
 	count = [i[1] for i in rows]
 	transactionChart = revitronui.DoughnutChart(count, users, 'Transactions by User')
-	
+
 	cursor.execute('SELECT user, count(*) FROM syncs GROUP BY user')
 	rows = cursor.fetchall()
 	users = [i[0] for i in rows]
 	count = [i[1] for i in rows]
 	syncsChart = revitronui.DoughnutChart(count, users, 'Syncs by User')
-	
+
 	conn.close()
-	
-	flexCharts([
-		transactionChart.get(),
-		syncsChart.get()
-	])
+
+	flexCharts([transactionChart.get(), syncsChart.get()])
 
 except:
 	revitronui.Alert('There hasn\'t been anything logged yet!')

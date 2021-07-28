@@ -15,7 +15,7 @@ max_value = len(sheets)
 counter = 1
 
 with forms.ProgressBar(title='Exporting PDF ... ({value} of {max_value})') as pb:
-	for sheet in sheets:	
+	for sheet in sheets:
 		counter = counter + 1
 		path = pdf.export(sheet)
 		if path:

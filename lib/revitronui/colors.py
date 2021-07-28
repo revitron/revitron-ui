@@ -1,16 +1,13 @@
 class Palette:
 
-
-	def __init__(self, steps, colorA = 'ffffff', colorB = '2c3e50'):
+	def __init__(self, steps, colorA='ffffff', colorB='2c3e50'):
 		self.colors = []
 		for i in range(0, steps):
 			perc = (i + 1) * 100.0 / steps
 			self.colors.append(self.mix(colorA, colorB, perc))
 
-
 	def get(self):
 		return self.colors
-
 
 	def mix(self, colorA, colorB, perc):
 		factorA = ((100.0 - perc) / 100.0)
@@ -24,10 +21,9 @@ class Palette:
 		red = redA + redB
 		green = greenA + greenB
 		blue = blueA + blueB
-		return '#{}{}{}'.format(self.zpad(hex(red)[2:]), 
-								self.zpad(hex(green)[2:]), 
-								self.zpad(hex(blue)[2:]))	
-
+		return '#{}{}{}'.format(
+		    self.zpad(hex(red)[2:]), self.zpad(hex(green)[2:]), self.zpad(hex(blue)[2:])
+		)
 
 	def zpad(self, x):
 		if len(x) == 2:

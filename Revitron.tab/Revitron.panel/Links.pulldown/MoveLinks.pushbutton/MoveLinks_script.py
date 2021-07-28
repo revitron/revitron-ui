@@ -2,11 +2,13 @@ import revitron
 from rpw.ui.forms import select_file
 from rpw.ui.forms.resources import *
 
+
 def select_folder(title):
-    form = Forms.FolderBrowserDialog()
-    form.Description = title
-    if form.ShowDialog() == Forms.DialogResult.OK:
-        return form.SelectedPath
+	form = Forms.FolderBrowserDialog()
+	form.Description = title
+	if form.ShowDialog() == Forms.DialogResult.OK:
+		return form.SelectedPath
+
 
 host = select_file('Revit Model (*.rvt)|*.rvt')
 source = select_folder('Select source directory for link structure')

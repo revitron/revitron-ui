@@ -3,7 +3,6 @@ from datetime import datetime
 
 class Date:
 
-
 	@staticmethod
 	def diff(dateA, dateB):
 		dateFormat = '%Y-%m-%d %H:%M:%S'

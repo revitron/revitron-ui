@@ -1,4 +1,4 @@
-import revitron 
+import revitron
 from revitron import _
 from pyrevit import script
 from pyrevit.forms import ProgressBar
@@ -13,31 +13,31 @@ def openHelp(sender, e):
 	script.open_url('https://revitron-ui.readthedocs.io/en/latest/tools/rooms.html')
 
 
-def addField(fields, config, name, title, component = 'TextBox', default = '', tab = 'Settings'):
+def addField(
+    fields, config, name, title, component='TextBox', default='', tab='Settings'
+):
 	value = config.get(name)
 	if not value:
 		value = default
 	_component = getattr(forms, component)
 	if component == 'CheckBox':
-		fields[name] = revitron.AttrDict({	
-			'label': forms.Label('', **{"tab": tab}),
-			'input': _component(name, title, value, **{"tab": tab})
+		fields[name] = revitron.AttrDict({
+		    'label':
+		    forms.Label('', **{"tab": tab}),
+		    'input':
+		    _component(name, title, value, **{"tab": tab})
 		})
 	else:
-		kwargs = {
-			'name': name,
-			'default': value,
-			'tab': tab
-		}
-		fields[name] = revitron.AttrDict({	
-			'label': forms.Label(title, **{"tab": tab}),
-			'input': _component(**kwargs)
+		kwargs = {'name': name, 'default': value, 'tab': tab}
+		fields[name] = revitron.AttrDict({
+		    'label': forms.Label(title, **{"tab": tab}),
+		    'input': _component(**kwargs)
 		})
 	return fields
 
 
 class TabWindowButton(Button):
-	
+
 	def __init__(self, button_text, on_click=None, **kwargs):
 		self.Content = button_text
 		self.on_click = on_click or TabWindow.get_values
@@ -72,12 +72,11 @@ class TabWindow(FlexForm):
 					<StackPanel Name="Main" Margin="10,10,10,10">
 					</StackPanel>
 				</StackPanel>
-				
 			</Window>
 			"""
-	
+
 	def __init__(self, title, components, **kwargs):
-		
+
 		self.ui = wpf.LoadComponent(self, StringReader(self.layout))
 		self.ui.Title = title
 		self.values = {}
@@ -86,9 +85,9 @@ class TabWindow(FlexForm):
 			setattr(self, key, value)
 
 		for n, component in enumerate(components):
-			
+
 			try:
-				_container = component.tab 
+				_container = component.tab
 				if component.__class__.__name__ == 'Label':
 					component.Margin = Thickness(10, 10, 10, 0)
 				else:
@@ -96,13 +95,12 @@ class TabWindow(FlexForm):
 			except:
 				_container = 'Main'
 				component.Margin = Thickness(10, 5, 10, 5)
-			
+
 			container = getattr(self, _container)
 			container.Children.Add(component)
 
 			if hasattr(component, 'on_click'):
 				component.Click += component.on_click
-
 
 	@staticmethod
 	def get_values(sender, e):
@@ -119,31 +117,167 @@ class TabWindow(FlexForm):
 		window.close()
 
 
-config = revitron.DocumentConfigStorage().get('revitron.rooms.calculateRoomHeights', defaultdict())
+config = revitron.DocumentConfigStorage().get(
+    'revitron.rooms.calculateRoomHeights', defaultdict()
+)
 
-fields = addField(OrderedDict(), config, 'roomFltrParam', 'Room Filter Parameter Name', 'TextBox', tab = 'Settings')
-fields = addField(fields, config, 'roomFltrList', 'Room Filter List (separate multiple by comma)', 'TextBox', tab = 'Settings')
-fields = addField(fields, config, 'roomFltrInvert', 'Invert Room Filter', 'CheckBox', tab = 'Settings')
+fields = addField(
+    OrderedDict(),
+    config,
+    'roomFltrParam',
+    'Room Filter Parameter Name',
+    'TextBox',
+    tab='Settings'
+)
 
-fields = addField(fields, config, 'rawEleFltrParam', 'Raw Element Filter Parameter Name', 'TextBox', tab = 'Raw')
-fields = addField(fields, config, 'rawEleFltrList', 'Raw Element Filter List (separate multiple by comma)', 'TextBox', tab = 'Raw')
-fields = addField(fields, config, 'rawEleFltrInvert', 'Invert Raw Element Filter', 'CheckBox', tab = 'Raw')
+fields = addField(
+    fields,
+    config,
+    'roomFltrList',
+    'Room Filter List (separate multiple by comma)',
+    'TextBox',
+    tab='Settings'
+)
 
-fields = addField(fields, config, 'rawBottomMinParam', 'Min Top of Floor (Raw) Parameter Name', 'TextBox', default = 'Raw: Top of floor (min)', tab = 'Raw')
-fields = addField(fields, config, 'rawBottomMaxParam', 'Max Top of Floor (Raw) Parameter Name', 'TextBox', default = 'Raw: Top of floor (max)', tab = 'Raw')
-fields = addField(fields, config, 'rawTopMinParam', 'Min Bottom of Ceiling (Raw) Parameter Name', 'TextBox', default = 'Raw: Bottom of ceiling (min)', tab = 'Raw')
-fields = addField(fields, config, 'rawTopMaxParam', 'Max Bottom of Ceiling (Raw) Parameter Name', 'TextBox', default = 'Raw: Bottom of ceiling (max)', tab = 'Raw')
+fields = addField(
+    fields, config, 'roomFltrInvert', 'Invert Room Filter', 'CheckBox', tab='Settings'
+)
 
-fields = addField(fields, config, 'finEleFltrParam', 'Finished Element Filter Parameter Name', 'TextBox', tab = 'Finished')
-fields = addField(fields, config, 'finEleFltrList', 'Finished Element Filter List (separate multiple by comma)', 'TextBox', tab = 'Finished')
-fields = addField(fields, config, 'finEleFltrInvert', 'Invert Finished Element Filter', 'CheckBox', tab = 'Finished')
+fields = addField(
+    fields,
+    config,
+    'rawEleFltrParam',
+    'Raw Element Filter Parameter Name',
+    'TextBox',
+    tab='Raw'
+)
 
-fields = addField(fields, config, 'finBottomMinParam', 'Min Top of Floor (Finished) Parameter Name', 'TextBox', default = 'Finished: Top of floor (min)', tab = 'Finished')
-fields = addField(fields, config, 'finBottomMaxParam', 'Max Top of Floor (Finished) Parameter Name', 'TextBox', default = 'Finished: Top of floor (max)', tab = 'Finished')
-fields = addField(fields, config, 'finTopMinParam', 'Min Bottom of Ceiling (Finished) Parameter Name', 'TextBox', default = 'Finished: Bottom of ceiling (min)', tab = 'Finished')
-fields = addField(fields, config, 'finTopMaxParam', 'Max Bottom of Ceiling (Finished) Parameter Name', 'TextBox', default = 'Finished: Bottom of ceiling (max)', tab = 'Finished')
+fields = addField(
+    fields,
+    config,
+    'rawEleFltrList',
+    'Raw Element Filter List (separate multiple by comma)',
+    'TextBox',
+    tab='Raw'
+)
 
-fields = addField(fields, config, 'gridSize', 'Grid Size', default = '5', tab = 'Settings')
+fields = addField(
+    fields,
+    config,
+    'rawEleFltrInvert',
+    'Invert Raw Element Filter',
+    'CheckBox',
+    tab='Raw'
+)
+
+fields = addField(
+    fields,
+    config,
+    'rawBottomMinParam',
+    'Min Top of Floor (Raw) Parameter Name',
+    'TextBox',
+    default='Raw: Top of floor (min)',
+    tab='Raw'
+)
+
+fields = addField(
+    fields,
+    config,
+    'rawBottomMaxParam',
+    'Max Top of Floor (Raw) Parameter Name',
+    'TextBox',
+    default='Raw: Top of floor (max)',
+    tab='Raw'
+)
+
+fields = addField(
+    fields,
+    config,
+    'rawTopMinParam',
+    'Min Bottom of Ceiling (Raw) Parameter Name',
+    'TextBox',
+    default='Raw: Bottom of ceiling (min)',
+    tab='Raw'
+)
+
+fields = addField(
+    fields,
+    config,
+    'rawTopMaxParam',
+    'Max Bottom of Ceiling (Raw) Parameter Name',
+    'TextBox',
+    default='Raw: Bottom of ceiling (max)',
+    tab='Raw'
+)
+
+fields = addField(
+    fields,
+    config,
+    'finEleFltrParam',
+    'Finished Element Filter Parameter Name',
+    'TextBox',
+    tab='Finished'
+)
+
+fields = addField(
+    fields,
+    config,
+    'finEleFltrList',
+    'Finished Element Filter List (separate multiple by comma)',
+    'TextBox',
+    tab='Finished'
+)
+
+fields = addField(
+    fields,
+    config,
+    'finEleFltrInvert',
+    'Invert Finished Element Filter',
+    'CheckBox',
+    tab='Finished'
+)
+
+fields = addField(
+    fields,
+    config,
+    'finBottomMinParam',
+    'Min Top of Floor (Finished) Parameter Name',
+    'TextBox',
+    default='Finished: Top of floor (min)',
+    tab='Finished'
+)
+
+fields = addField(
+    fields,
+    config,
+    'finBottomMaxParam',
+    'Max Top of Floor (Finished) Parameter Name',
+    'TextBox',
+    default='Finished: Top of floor (max)',
+    tab='Finished'
+)
+
+fields = addField(
+    fields,
+    config,
+    'finTopMinParam',
+    'Min Bottom of Ceiling (Finished) Parameter Name',
+    'TextBox',
+    default='Finished: Bottom of ceiling (min)',
+    tab='Finished'
+)
+
+fields = addField(
+    fields,
+    config,
+    'finTopMaxParam',
+    'Max Bottom of Ceiling (Finished) Parameter Name',
+    'TextBox',
+    default='Finished: Bottom of ceiling (max)',
+    tab='Finished'
+)
+
+fields = addField(fields, config, 'gridSize', 'Grid Size', default='5', tab='Settings')
 
 components = []
 
@@ -165,20 +299,24 @@ if form.values:
 
 	transaction = revitron.Transaction(suppressWarnings=True)
 
-	revitron.DocumentConfigStorage().set('revitron.rooms.calculateRoomHeights', form.values)
+	revitron.DocumentConfigStorage().set(
+	    'revitron.rooms.calculateRoomHeights', form.values
+	)
 
 	max_value = 4
 
-	with ProgressBar(indeterminate=True, title='Preparing ... ({value} of {max_value})') as pb:
+	with ProgressBar(
+	    indeterminate=True, title='Preparing ... ({value} of {max_value})'
+	) as pb:
 
 		pb.update_progress(0, max_value)
 
 		roomFilter = revitron.Filter().noTypes().byCategory('Rooms')
 
 		if values.roomFltrParam and values.roomFltrList:
-			roomFilter = roomFilter.byStringContainsOneInCsv(values.roomFltrParam, 
-														 	 values.roomFltrList, 
-														 	 values.roomFltrInvert)
+			roomFilter = roomFilter.byStringContainsOneInCsv(
+			    values.roomFltrParam, values.roomFltrList, values.roomFltrInvert
+			)
 		rooms = roomFilter.getElements()
 
 		rawElements = None
@@ -187,17 +325,17 @@ if form.values:
 		pb.update_progress(1, max_value)
 
 		if values.rawEleFltrParam:
-			rawFilter = revitron.Filter().byStringContainsOneInCsv(values.rawEleFltrParam, 
-																   values.rawEleFltrList, 
-																   values.rawEleFltrInvert)
+			rawFilter = revitron.Filter().byStringContainsOneInCsv(
+			    values.rawEleFltrParam, values.rawEleFltrList, values.rawEleFltrInvert
+			)
 			rawElements = rawFilter.noTypes().getElementIds()
 
 		pb.update_progress(2, max_value)
 
 		if values.finEleFltrParam:
-			finFilter = revitron.Filter().byStringContainsOneInCsv(values.finEleFltrParam, 
-																   values.finEleFltrList, 
-																   values.finEleFltrInvert)
+			finFilter = revitron.Filter().byStringContainsOneInCsv(
+			    values.finEleFltrParam, values.finEleFltrList, values.finEleFltrInvert
+			)
 			finElements = finFilter.noTypes().getElementIds()
 
 		pb.update_progress(3, max_value)
