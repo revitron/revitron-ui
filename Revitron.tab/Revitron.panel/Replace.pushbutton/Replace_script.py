@@ -27,7 +27,7 @@ if 'Name' in parameters:
 form = forms.FlexForm(
     'Search and Replace in Selection',
     [
-        forms.Label('Parameter (any paramert or "Name" for type names)'),
+        forms.Label('Parameter (any parameter or "Name" for type names)'),
         forms.ComboBox('parameter',
                        parameters,
                        default=defaultParameter),
