@@ -45,7 +45,8 @@ class Update:
 	def git(cmd, repo):
 		return subprocess.check_output(
 		    'set GIT_TERMINAL_PROMPT=0 && git -c credential.helper= --git-dir={0}\\.git --work-tree={0} {1}'
-		    .format(repo, cmd),
+		    .format(repo,
+		            cmd),
 		    stderr=subprocess.STDOUT,
 		    shell=True,
 		    cwd='C:\\'
@@ -62,7 +63,8 @@ class Update:
 	def pyRevit():
 		revit = ''
 		process = subprocess.Popen([
-		    'powershell', 'Get-Process Revit | Select-Object Path'
+		    'powershell',
+		    'Get-Process Revit | Select-Object Path'
 		],
 		                           stdout=subprocess.PIPE)
 		while True:
@@ -74,7 +76,9 @@ class Update:
 				break
 		os.system(
 		    '{}\\updatePyRevit.bat "{}" "{}"'.format(
-		        os.path.dirname(__file__), config.RPM_PYREVIT_DIR, revit
+		        os.path.dirname(__file__),
+		        config.RPM_PYREVIT_DIR,
+		        revit
 		    )
 		)
 

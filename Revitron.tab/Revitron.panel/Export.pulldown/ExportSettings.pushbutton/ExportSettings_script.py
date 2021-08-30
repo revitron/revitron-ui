@@ -37,27 +37,56 @@ if not revitron.Document().isFamily():
 
 	config = revitron.DocumentConfigStorage().get('revitron.export', defaultdict())
 
-	components = addFields([], [
-	    'Sheet Export Directory', 'Sheet Naming Template', 'Sheet Size Parameter Name',
-	    'Default Sheet Size', 'Sheet Orientation Parameter Name'
-	])
+	components = addFields([],
+	                       [
+	                           'Sheet Export Directory',
+	                           'Sheet Naming Template',
+	                           'Sheet Size Parameter Name',
+	                           'Default Sheet Size',
+	                           'Sheet Orientation Parameter Name'
+	                       ])
 
 	components = addComboBox(
-	    components, config, 'Default Sheet Orientation', ['Landscape', 'Portrait']
+	    components,
+	    config,
+	    'Default Sheet Orientation',
+	    ['Landscape',
+	     'Portrait']
+	)
+
+	components = addComboBox(
+	    components,
+	    config,
+	    'Color Mode',
+	    ['Color',
+	     'BlackLine',
+	     'GrayScale']
 	)
 
 	components = addFields(
-	    components, ['---', 'PDF Printer Address', 'PDF Temporary Output Path', '---']
+	    components,
+	    ['---',
+	     'PDF Printer Address',
+	     'PDF Temporary Output Path',
+	     '---']
 	)
 
 	components = addComboBox(
-	    components, config, 'DWG Export Setup',
+	    components,
+	    config,
+	    'DWG Export Setup',
 	    list(revitron.DB.BaseExportOptions.GetPredefinedSetupNames(revitron.DOC))
 	)
 
 	components = addComboBox(
-	    components, config, 'DWG Export Unit',
-	    ['Meter', 'Centimeter', 'Millimeter', 'Foot', 'Inch']
+	    components,
+	    config,
+	    'DWG Export Unit',
+	    ['Meter',
+	     'Centimeter',
+	     'Millimeter',
+	     'Foot',
+	     'Inch']
 	)
 
 	components.append(Label(''))

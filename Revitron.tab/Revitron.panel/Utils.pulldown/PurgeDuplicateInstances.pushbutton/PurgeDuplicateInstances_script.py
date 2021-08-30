@@ -61,7 +61,8 @@ transaction = revitron.Transaction()
 # The second run will then remove always the older instances (getDuplicateInstances(True)).
 deletedCount = purge(duplicates, typeIdsInteger)
 deletedCount = deletedCount + purge(
-    revitron.Document().getDuplicateInstances(True), typeIdsInteger,
+    revitron.Document().getDuplicateInstances(True),
+    typeIdsInteger,
     'Purging duplicate instances - 2nd pass'
 )
 transaction.commit()

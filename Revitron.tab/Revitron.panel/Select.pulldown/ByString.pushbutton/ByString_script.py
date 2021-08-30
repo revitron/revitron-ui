@@ -20,13 +20,19 @@ if 'Family and Type' in parameters:
 
 components = [
     Label('Parameter Name'),
-    ComboBox('parameter', parameters, default=defaultParameter),
+    ComboBox('parameter',
+             parameters,
+             default=defaultParameter),
     Label('Category'),
-    ComboBox('category', categories, default='All'),
+    ComboBox('category',
+             categories,
+             default='All'),
     Label('Search String'),
     TextBox('search'),
     Separator(),
-    CheckBox('invert', 'Invert Selection', default=False)
+    CheckBox('invert',
+             'Invert Selection',
+             default=False)
 ]
 
 if selection:
@@ -36,7 +42,9 @@ else:
 
 components.append(
     Button(
-        'Select', Width=100, HorizontalAlignment=System.Windows.HorizontalAlignment.Right
+        'Select',
+        Width=100,
+        HorizontalAlignment=System.Windows.HorizontalAlignment.Right
     )
 )
 
@@ -55,7 +63,9 @@ if 'search' in form.values:
 
 	fltr = (
 	    revitron.Filter(scope).noTypes().byStringContains(
-	        form.values['parameter'], form.values['search'], form.values['invert']
+	        form.values['parameter'],
+	        form.values['search'],
+	        form.values['invert']
 	    )
 	)
 

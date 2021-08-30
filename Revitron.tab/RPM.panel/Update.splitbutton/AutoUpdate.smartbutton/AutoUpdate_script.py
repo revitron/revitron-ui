@@ -76,7 +76,9 @@ def setIcon(state):
 def getStartUpFolder():
 	shellFolders = OpenKey(
 	    HKEY_CURRENT_USER,
-	    'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders', 0, KEY_READ
+	    'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders',
+	    0,
+	    KEY_READ
 	)
 	try:
 		count = 0

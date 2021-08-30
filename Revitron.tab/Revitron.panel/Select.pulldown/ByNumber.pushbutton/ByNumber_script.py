@@ -21,12 +21,17 @@ if 'Area' in parameters:
 
 components = [
     Label('Parameter Name'),
-    ComboBox('parameter', parameters, default=defaultParameter),
+    ComboBox('parameter',
+             parameters,
+             default=defaultParameter),
     Label('Category'),
-    ComboBox('category', categories, default='All'),
+    ComboBox('category',
+             categories,
+             default='All'),
     Label('Evaluator'),
     ComboBox(
-        'evaluator', {
+        'evaluator',
+        {
             'Greater than': 'byNumberIsGreater',
             'Greater than or equal': 'byNumberIsGreaterOrEqual',
             'Equal': 'byNumberIsEqual',
@@ -37,7 +42,9 @@ components = [
     Label('Value'),
     TextBox('value'),
     Separator(),
-    CheckBox('invert', 'Invert Selection', default=False)
+    CheckBox('invert',
+             'Invert Selection',
+             default=False)
 ]
 
 if selection:
@@ -47,7 +54,9 @@ else:
 
 components.append(
     Button(
-        'Select', Width=100, HorizontalAlignment=System.Windows.HorizontalAlignment.Right
+        'Select',
+        Width=100,
+        HorizontalAlignment=System.Windows.HorizontalAlignment.Right
     )
 )
 
@@ -82,7 +91,9 @@ if 'value' in form.values:
 	if form.values['category'] != 'All':
 		fltr.byCategory(form.values['category'])
 
-	ids = evaluator(fltr, form.values['parameter'], value,
+	ids = evaluator(fltr,
+	                form.values['parameter'],
+	                value,
 	                form.values['invert']).noTypes().getElementIds()
 
 	revitron.Selection.set(ids)

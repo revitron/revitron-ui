@@ -40,16 +40,24 @@ class ExtensionsManager:
 	def install(self, name, repo, extType):
 		repo = repo.replace('.git', '') + '.git'
 		cmd = '{} extend {} {} {} --dest="{}"'.format(
-		    config.RPM_PYREVIT_BIN, extType, name, repo, config.RPM_EXTENSIONS_DIR
+		    config.RPM_PYREVIT_BIN,
+		    extType,
+		    name,
+		    repo,
+		    config.RPM_EXTENSIONS_DIR
 		)
 		types = {'ui': 'extension', 'lib': 'lib'}
 		path = config.RPM_EXTENSIONS_DIR + '\\' + name + '.' + types.get(
-		    extType, 'extension'
+		    extType,
+		    'extension'
 		)
 		try:
 			if not os.path.isdir(path):
 				subprocess.check_output(
-				    cmd, stderr=subprocess.STDOUT, shell=True, cwd='C:\\'
+				    cmd,
+				    stderr=subprocess.STDOUT,
+				    shell=True,
+				    cwd='C:\\'
 				)
 				mlogger.info('Installed extension {}'.format(name))
 			else:

@@ -22,7 +22,9 @@ class Palette:
 		green = greenA + greenB
 		blue = blueA + blueB
 		return '#{}{}{}'.format(
-		    self.zpad(hex(red)[2:]), self.zpad(hex(green)[2:]), self.zpad(hex(blue)[2:])
+		    self.zpad(hex(red)[2:]),
+		    self.zpad(hex(green)[2:]),
+		    self.zpad(hex(blue)[2:])
 		)
 
 	def zpad(self, x):
