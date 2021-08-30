@@ -54,6 +54,15 @@ if not revitron.Document().isFamily():
 	     'Portrait']
 	)
 
+	components = addComboBox(
+	    components,
+	    config,
+	    'Color Mode',
+	    ['Color',
+	     'BlackLine',
+	     'GrayScale']
+	)
+
 	components = addFields(
 	    components,
 	    ['---',

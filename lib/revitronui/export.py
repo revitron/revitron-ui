@@ -78,6 +78,7 @@ class PDF:
 		    sheet,
 		    sheetSize,
 		    sheetOrientation,
+		    self.config.get('Color_Mode'),
 		    self.directory,
 		    self.config.get('Sheet_Naming_Template')
 		)
