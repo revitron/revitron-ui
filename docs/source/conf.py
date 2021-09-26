@@ -36,7 +36,7 @@ extensions = ['sphinxext.opengraph']
 ogp_site_url = "https://revitron-ui.readthedocs.io/"
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = []
+templates_path = ['_templates']
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
