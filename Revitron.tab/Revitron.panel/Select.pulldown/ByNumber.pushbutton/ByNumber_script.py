@@ -74,7 +74,6 @@ if 'value' in form.values:
 		value = revitron.Unit.convertToInternalUnit(form.values['value'], unit)
 	except:
 		value = float(form.values['value'])
-		print('no unit', value)
 
 	scope = False
 
