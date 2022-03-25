@@ -9,11 +9,17 @@ try:
 
 	modelGuid = cloudModelPath.GetModelGUID()
 	projectGuid = cloudModelPath.GetProjectGUID()
+	try:
+		region = cloudModelPath.Region
+	except:
+		region = ''
 
 	out.print_table([[modelGuid,
-	                  projectGuid]],
+	                  projectGuid,
+	                  region]],
 	                title='Cloud Model Info',
 	                columns=['Model GUID',
-	                         'Project GUID'])
+	                         'Project GUID',
+	                         'Region'])
 except:
 	out.print_html('<b>The active model is not a cloud model!</b>')
