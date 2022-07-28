@@ -3,6 +3,23 @@ from revitron import _
 from collections import defaultdict
 
 
+class CSV:
+
+	def __init__(self):
+		self.config = revitron.DocumentConfigStorage().get(
+		    'revitron.export',
+		    defaultdict()
+		)
+		self.exporter = revitron.CSVExporter()
+		self.directory = self.config.get('CSV_Export_Directory', 'C:\\temp\\revitron')
+
+	def export(self, schedule, directory=False):
+		template = self.config.get('CSV_Naming_Template', False)
+		if directory:
+			self.directory = directory
+		return self.exporter.exportSchedule(schedule, self.directory, template)
+
+
 class DWG:
 
 	def __init__(self):
