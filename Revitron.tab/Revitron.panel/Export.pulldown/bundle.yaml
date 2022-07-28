@@ -5,5 +5,7 @@ layout:
   - DWGActive[title:Export Active Sheet as DWG]
   - DWGMultiple[title:Batch Export Multiple Sheets as DWG]
   - -----
+  - CSVMultiple[title:Batch Export Multiple Schedules as CSV]
+  - -----
   - ExportSettings[title:Export Settings]
   - Help
