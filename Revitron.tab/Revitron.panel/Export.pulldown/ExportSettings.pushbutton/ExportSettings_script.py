@@ -1,100 +1,46 @@
 import revitron
 from revitron import _
-from rpw.ui.forms import FlexForm, TextBox, Button, Label, Separator, ComboBox
+from revitron.ui import TabWindow, TextBox, SelectBox, Label
 from collections import defaultdict
-from pyrevit import script
-import System.Windows
 
+tabs = ['PDF Settings', 'PDF Printer', 'DWG Settings']
 
-def addFields(components, fields):
-	for field in fields:
-		if field == '---':
-			components.append(Separator())
-		else:
-			key = revitron.String.sanitize(field)
-			components.append(Label(field))
-			components.append(TextBox(key, Text=config.get(key)))
-	return components
+window = TabWindow('Export Settings', tabs, width=500, height=610)
 
+config = revitron.DocumentConfigStorage().get('revitron.export', defaultdict())
 
-def addComboBox(components, config, name, values):
-	key = revitron.String.sanitize(name)
-	if not values:
-		values = ['']
-	default = values[0]
-	if config.get(key) in values:
-		default = config.get(key)
-	components.append(Label(name))
-	components.append(ComboBox(key, values, default=default))
-	return components
+TextBox.create(window, tabs[0], 'Sheet Export Directory', config)
+TextBox.create(window, tabs[0], 'Sheet Naming Template', config)
+TextBox.create(window, tabs[0], 'Sheet Size Parameter Name', config)
+TextBox.create(window, tabs[0], 'Default Sheet Size', config)
+TextBox.create(window, tabs[0], 'Sheet Orientation Parameter Name', config)
 
+SelectBox.create(
+    window, tabs[0], 'Default Sheet Orientation', ['Landscape', 'Portrait'], config
+)
 
-def openHelp(sender, e):
-	script.open_url('https://revitron-ui.readthedocs.io/en/latest/tools/export.html')
+SelectBox.create(
+    window, tabs[0], 'Color Mode', ['Color', 'BlackLine', 'GrayScale'], config
+)
 
+TextBox.create(window, tabs[1], 'PDF Printer Address', config)
+TextBox.create(window, tabs[1], 'PDF Temporary Output Path', config)
 
-if not revitron.Document().isFamily():
+dwgSettings = list(revitron.DB.BaseExportOptions.GetPredefinedSetupNames(revitron.DOC))
 
-	config = revitron.DocumentConfigStorage().get('revitron.export', defaultdict())
+if dwgSettings:
+	SelectBox.create(window, tabs[2], 'DWG Export Setup', dwgSettings, config)
 
-	components = addFields([],
-	                       [
-	                           'Sheet Export Directory',
-	                           'Sheet Naming Template',
-	                           'Sheet Size Parameter Name',
-	                           'Default Sheet Size',
-	                           'Sheet Orientation Parameter Name'
-	                       ])
-
-	components = addComboBox(
-	    components,
-	    config,
-	    'Default Sheet Orientation',
-	    ['Landscape',
-	     'Portrait']
+	SelectBox.create(
+	    window,
+	    tabs[2],
+	    'DWG Export Unit', ['Meter', 'Centimeter', 'Millimeter', 'Foot', 'Inch'],
+	    config
 	)
+else:
+	Label.create(window, tabs[2], 'Please first define a named export setting.')
 
-	components = addComboBox(
-	    components,
-	    config,
-	    'Color Mode',
-	    ['Color',
-	     'BlackLine',
-	     'GrayScale']
-	)
+window.show()
 
-	components = addFields(
-	    components,
-	    ['---',
-	     'PDF Printer Address',
-	     'PDF Temporary Output Path',
-	     '---']
-	)
-
-	components = addComboBox(
-	    components,
-	    config,
-	    'DWG Export Setup',
-	    list(revitron.DB.BaseExportOptions.GetPredefinedSetupNames(revitron.DOC))
-	)
-
-	components = addComboBox(
-	    components,
-	    config,
-	    'DWG Export Unit',
-	    ['Meter',
-	     'Centimeter',
-	     'Millimeter',
-	     'Foot',
-	     'Inch']
-	)
-
-	components.append(Label(''))
-	components.append(Button('Open Documentation', on_click=openHelp))
-	components.append(Button('Save'))
-
-	form = FlexForm('PDF and DWG Export Settings', components)
-	form.show()
-
-	if form.values:
-		revitron.DocumentConfigStorage().set('revitron.export', form.values)
+if window.ok:
+	revitron.DocumentConfigStorage().set('revitron.export', window.values)
