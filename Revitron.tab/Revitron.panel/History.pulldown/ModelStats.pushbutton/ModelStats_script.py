@@ -2,7 +2,6 @@ import revitron
 import revitronui
 import sqlite3
 import pyrevit
-import os
 
 config = revitron.DocumentConfigStorage().get('revitron.history', dict())
 sqliteFile = config.get('file', '')
@@ -55,7 +54,7 @@ try:
 	cursor = conn.cursor()
 	cursor.execute('SELECT startTime, finishTime, user FROM syncs')
 	rows = cursor.fetchmany(100)
-	times = [revitronui.Date.diff(i[0], i[1]) for i in rows]
+	times = [revitron.Date.diffMin(i[0], i[1]) for i in rows]
 	users = [i[2] for i in rows]
 	timeChart = revitronui.LineChart(times, users, 'Sync Time (MIN)')
 	timeChart.draw()

@@ -1,7 +1,5 @@
 import revitron
-import revitronui
 import sqlite3
-import json
 from datetime import datetime
 from pyrevit import script
 from pyrevit import forms
@@ -69,7 +67,7 @@ syncMinutes = []
 for row in rows:
 	table += '<tr>'
 	table += tableCell(row[0])
-	minutes = revitronui.Date.diff(row[0], row[1])
+	minutes = revitron.Date.diffMin(row[0], row[1])
 	syncMinutes.append(minutes)
 	table += tableCell(str(minutes) + ' min')
 	table += tableCell(str(round(float(str(row[2]).replace(' mb', '')), 2)) + ' mb')
