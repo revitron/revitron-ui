@@ -1,5 +1,6 @@
 import revitron
-from pyrevit import forms
+from pyrevit.forms import SelectFromList, TemplateListItem
+from rpw.ui.forms.resources import *
 
 
 class SelectType:
@@ -11,7 +12,7 @@ class SelectType:
 			self.options.append(OptionListTypes(elementType))
 
 	def show(self, multiselect=False):
-		return forms.SelectFromList.show(
+		return SelectFromList.show(
 		    self.options,
 		    title=self.title,
 		    multiselect=multiselect,
@@ -19,7 +20,7 @@ class SelectType:
 		)
 
 
-class OptionListTypes(forms.TemplateListItem):
+class OptionListTypes(TemplateListItem):
 
 	@property
 	def name(self):
