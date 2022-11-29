@@ -13,7 +13,7 @@ config = revitron.DocumentConfigStorage().get(
 tabs = ['Settings', 'Raw', 'Finished']
 
 window = TabWindow(
-    'Export Settings', tabs, okButtonText='Calculate', width=560, height=600
+    'Calculate Room Heights', tabs, okButtonText='Calculate', width=560, height=600
 )
 
 TextBox.create(
@@ -31,6 +31,7 @@ TextBox.create(
 CheckBox.create(window, tabs[0], 'roomFltrInvert', config, title='Invert Room Filter')
 
 TextBox.create(window, tabs[0], 'gridSize', config, title='Grid Size', default='5')
+TextBox.create(window, tabs[0], 'inset', config, title='Inset', default='0.05')
 
 TextBox.create(
     window, tabs[1], 'rawEleFltrParam', config, title='Raw Element Filter Parameter Name'
@@ -201,7 +202,12 @@ if window.values:
 		with ProgressBar(title='Processing Rooms ... ({value} of {max_value})') as pb:
 			pb.update_progress(counter, max_value)
 			for room in rooms:
-				heights = _(room).traceHeight(view3D, rawElements, float(values.gridSize))
+				heights = _(room).traceHeight(
+				    view3D,
+				    rawElements,
+				    gridSize=float(values.gridSize),
+				    inset=float(values.inset)
+				)
 				try:
 					_(room).set(values.rawBottomMinParam, heights.bottom.min, 'Length')
 					_(room).set(values.rawBottomMaxParam, heights.bottom.max, 'Length')
@@ -212,7 +218,12 @@ if window.values:
 					_(room).set(values.rawTopMaxParam, heights.top.max, 'Length')
 				except:
 					pass
-				heights = _(room).traceHeight(view3D, finElements, float(values.gridSize))
+				heights = _(room).traceHeight(
+				    view3D,
+				    finElements,
+				    gridSize=float(values.gridSize),
+				    inset=float(values.inset)
+				)
 				try:
 					_(room).set(values.finBottomMinParam, heights.bottom.min, 'Length')
 					_(room).set(values.finBottomMaxParam, heights.bottom.max, 'Length')
